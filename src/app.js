@@ -911,7 +911,7 @@ function loadAudioBgmEnabled() {
   try {
     const raw = window.localStorage.getItem(AUDIO_BGM_STORAGE_KEY);
     if (raw === null) {
-      return loadLegacyAudioEnabled();
+      return true;
     }
     return raw === "1";
   } catch {
@@ -938,7 +938,7 @@ function loadAudioSfxEnabled() {
   try {
     const raw = window.localStorage.getItem(AUDIO_SFX_STORAGE_KEY);
     if (raw === null) {
-      return loadLegacyAudioEnabled();
+      return true;
     }
     return raw === "1";
   } catch {
