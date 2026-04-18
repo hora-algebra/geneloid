@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GenericAlgoid | Developer Panel</title>
+    <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body class="page-shell page-shell-dev">
+    <div class="aurora aurora-a"></div>
+    <div class="aurora aurora-c"></div>
+    <main class="dev-layout">
+      <header class="developer-header card">
+        <div>
+          <p id="dev-header-eyebrow" class="eyebrow">Developer page</p>
+          <h1 id="dev-header-title">Inspect and tune the evolutionary parameters.</h1>
+          <p id="dev-header-lead" class="lead">
+            Values are persisted in local storage. Saving here resets the main
+            simulation with the new material economy and combat profile.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <button id="locale-toggle" class="button-secondary" type="button">日本語</button>
+          <a id="back-to-simulation" class="button-secondary" href="./index.html">Back to simulation</a>
+          <button id="save-config" class="button-primary">Save changes</button>
+          <button id="reload-config" class="button-secondary">Reload saved</button>
+          <button id="defaults-config" class="button-secondary">
+            Restore defaults
+          </button>
+        </div>
+      </header>
+
+      <section class="dev-top-grid">
+        <article class="card">
+          <p id="snapshot-title" class="eyebrow">Live snapshot</p>
+          <div id="live-snapshot" class="snapshot-grid"></div>
+        </article>
+        <article class="card">
+          <p id="derived-title" class="eyebrow">Derived checks</p>
+          <div id="derived-checks" class="metric-list"></div>
+          <div id="config-state" class="inline-note">
+            Editing the draft configuration.
+          </div>
+        </article>
+        <article class="card">
+          <p id="export-title" class="eyebrow">Config export</p>
+          <pre id="config-export" class="config-export"></pre>
+        </article>
+      </section>
+
+      <section class="card dev-preview-panel">
+        <p id="preview-title" class="eyebrow">Developer preview</p>
+        <p id="preview-lead" class="lead dev-preview-lead">
+          Draft configuration runs locally here. Vision rings are drawn for every cell.
+        </p>
+        <div class="canvas-frame dev-preview-frame">
+          <canvas
+            id="dev-preview-canvas"
+            aria-label="Developer preview with sensory ranges"
+          ></canvas>
+        </div>
+      </section>
+
+      <section class="card">
+        <p id="parameters-title" class="eyebrow">Parameters</p>
+        <div id="parameter-groups" class="parameter-groups"></div>
+      </section>
+    </main>
+
+    <script type="module" src="./src/dev.js"></script>
+  </body>
+</html>

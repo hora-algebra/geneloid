@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GenericAlgoid | Toroidal Evolution</title>
+    <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body class="page-shell">
+    <div class="aurora aurora-a"></div>
+    <div class="aurora aurora-b"></div>
+    <main class="app-layout app-layout-minimal">
+      <section class="stage-panel">
+        <div class="stage-shell">
+          <div class="stage-toolbar">
+            <div class="stage-toolbar-leading">
+              <button
+                id="toggle-menu"
+                class="icon-button"
+                type="button"
+                aria-label="Toggle menu"
+                title="Menu (M)"
+              >
+                ☰
+              </button>
+              <div class="stage-hover-anchor">
+                <button
+                  id="commands-peek-button"
+                  class="stage-peek-button"
+                  type="button"
+                  aria-label="Show command list"
+                  title="Command list"
+                >
+                  Commands
+                </button>
+                <div id="commands-panel" class="stage-hover-panel stage-command-panel">
+                  <div class="stage-shortcuts-hint" aria-label="Keyboard shortcuts">
+                    <div
+                      class="shortcut-card shortcut-card-actionable"
+                      data-command-action="menu"
+                      role="button"
+                      tabindex="0"
+                    >
+                      <svg class="shortcut-icon shortcut-icon-menu" viewBox="0 0 36 24" aria-hidden="true">
+                        <line x1="7" y1="6" x2="29" y2="6" />
+                        <line x1="7" y1="12" x2="29" y2="12" />
+                        <line x1="7" y1="18" x2="29" y2="18" />
+                      </svg>
+                      <div class="shortcut-copy">
+                        <div class="shortcut-keys"><kbd>M</kbd></div>
+                        <span id="hint-menu-label" class="shortcut-label">Menu</span>
+                      </div>
+                    </div>
+                    <div
+                      class="shortcut-card shortcut-card-actionable"
+                      data-command-action="run"
+                      role="button"
+                      tabindex="0"
+                    >
+                      <svg class="shortcut-icon shortcut-icon-run" viewBox="0 0 36 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="7" />
+                        <path d="M10.5 8.5 L16.5 12 L10.5 15.5 Z" />
+                        <rect x="22" y="7" width="3" height="10" rx="1.2" />
+                        <rect x="27" y="7" width="3" height="10" rx="1.2" />
+                      </svg>
+                      <div class="shortcut-copy">
+                        <div class="shortcut-keys"><kbd>Space</kbd></div>
+                        <span id="hint-run-label" class="shortcut-label">Run</span>
+                      </div>
+                    </div>
+                    <div
+                      class="shortcut-card shortcut-card-actionable"
+                      data-command-action="reset"
+                      role="button"
+                      tabindex="0"
+                    >
+                      <svg class="shortcut-icon shortcut-icon-reset" viewBox="0 0 36 24" aria-hidden="true">
+                        <path d="M26 8.5 A8 8 0 1 0 27.5 14" />
+                        <path d="M23 5.5 L28.5 5.5 L28.5 11" />
+                      </svg>
+                      <div class="shortcut-copy">
+                        <div class="shortcut-keys"><kbd>R</kbd></div>
+                        <span id="hint-reset-label" class="shortcut-label">Reset</span>
+                      </div>
+                    </div>
+                    <div
+                      class="shortcut-card shortcut-card-actionable"
+                      data-command-action="fullscreen"
+                      role="button"
+                      tabindex="0"
+                    >
+                      <svg class="shortcut-icon shortcut-icon-full" viewBox="0 0 36 24" aria-hidden="true">
+                        <path d="M8 9 V5 H12" />
+                        <path d="M24 5 H28 V9" />
+                        <path d="M28 15 V19 H24" />
+                        <path d="M12 19 H8 V15" />
+                      </svg>
+                      <div class="shortcut-copy">
+                        <div class="shortcut-keys"><kbd>F</kbd></div>
+                        <span id="hint-full-label" class="shortcut-label">Full</span>
+                      </div>
+                    </div>
+                    <div
+                      class="shortcut-card shortcut-card-actionable"
+                      data-command-action="developer"
+                      role="button"
+                      tabindex="0"
+                    >
+                      <svg class="shortcut-icon shortcut-icon-speed" viewBox="0 0 36 24" aria-hidden="true">
+                        <line x1="8" y1="12" x2="28" y2="12" />
+                        <path d="M8 12 L12 9.3 M8 12 L12 14.7" />
+                        <path d="M28 12 L24 9.3 M28 12 L24 14.7" />
+                        <circle cx="18" cy="12" r="3.2" />
+                      </svg>
+                      <div class="shortcut-copy">
+                        <div class="shortcut-keys"><kbd>[</kbd><kbd>]</kbd><span class="shortcut-key-sep">/</span><kbd>-</kbd><kbd>+</kbd></div>
+                        <span id="hint-speed-label" class="shortcut-label">Speed</span>
+                      </div>
+                    </div>
+                    <div class="shortcut-card">
+                      <svg class="shortcut-icon shortcut-icon-feed" viewBox="0 0 36 24" aria-hidden="true">
+                        <circle cx="9" cy="8" r="1.5" />
+                        <circle cx="14" cy="11" r="1.5" />
+                        <circle cx="19" cy="14" r="1.5" />
+                        <circle cx="27" cy="12" r="4.2" />
+                      </svg>
+                      <div class="shortcut-copy">
+                        <div class="shortcut-keys"><kbd>P</kbd><span class="shortcut-key-sep">+</span><kbd>Drag</kbd></div>
+                        <span id="hint-drop-label" class="shortcut-label">Feed</span>
+                      </div>
+                    </div>
+                    <div class="shortcut-card">
+                      <svg class="shortcut-icon shortcut-icon-lightning" viewBox="0 0 36 24" aria-hidden="true">
+                        <circle cx="24" cy="12" r="6.8" />
+                        <path d="M13 4 L8 13 H13 L11 20 L19 10 H14 Z" />
+                      </svg>
+                      <div class="shortcut-copy">
+                        <div class="shortcut-keys"><kbd>L</kbd><span class="shortcut-key-sep">+</span><kbd>Hold</kbd></div>
+                        <span id="hint-lightning-label" class="shortcut-label">Lightning</span>
+                      </div>
+                    </div>
+                    <div class="shortcut-card">
+                      <svg class="shortcut-icon shortcut-icon-spring" viewBox="0 0 36 24" aria-hidden="true">
+                        <path d="M17 5.5 C23.5 5.5 24.5 14.5 18 14.5 C13.5 14.5 13.5 9.3 17 9.3 C19.5 9.3 20 12.2 18 12.2" />
+                        <circle cx="18" cy="12" r="2.2" />
+                      </svg>
+                      <div class="shortcut-copy">
+                        <div class="shortcut-keys"><kbd>S</kbd><span class="shortcut-key-sep">+</span><kbd>Click</kbd></div>
+                        <span id="hint-spring-label" class="shortcut-label">Spring</span>
+                      </div>
+                    </div>
+                    <div class="shortcut-card">
+                      <svg class="shortcut-icon shortcut-icon-mountain" viewBox="0 0 36 24" aria-hidden="true">
+                        <path d="M6 18 L14 8 L20 14 L24 10 L30 18 Z" />
+                        <path d="M14 8 L16 11.3 L18.7 10.2 L20 14" />
+                      </svg>
+                      <div class="shortcut-copy">
+                        <div class="shortcut-keys"><kbd>H</kbd><span class="shortcut-key-sep">+</span><kbd>Drag</kbd></div>
+                        <span id="hint-mountain-label" class="shortcut-label">Mountain</span>
+                      </div>
+                    </div>
+                    <div class="shortcut-card">
+                      <svg class="shortcut-icon shortcut-icon-design" viewBox="0 0 36 24" aria-hidden="true">
+                        <circle cx="18" cy="12" r="6.8" />
+                        <path d="M18 5.8 V18.2" />
+                        <path d="M11.8 12 H24.2" />
+                      </svg>
+                      <div class="shortcut-copy">
+                        <div class="shortcut-keys"><kbd>C</kbd><span class="shortcut-key-sep">+</span><kbd>Click</kbd></div>
+                        <span id="hint-design-label" class="shortcut-label">Custom</span>
+                      </div>
+                    </div>
+                    <div class="shortcut-card">
+                      <svg class="shortcut-icon shortcut-icon-dev" viewBox="0 0 36 24" aria-hidden="true">
+                        <circle cx="11" cy="8" r="2" />
+                        <circle cx="25" cy="8" r="2" />
+                        <circle cx="11" cy="16" r="2" />
+                        <circle cx="25" cy="16" r="2" />
+                        <path d="M13 8 H23 M11 10 V14 M25 10 V14 M13 16 H23" />
+                      </svg>
+                      <div class="shortcut-copy">
+                        <div class="shortcut-keys"><kbd>D</kbd></div>
+                        <span id="hint-dev-label" class="shortcut-label">Dev</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="stage-quick-controls" aria-label="Quick controls">
+              <label class="quick-control quick-control-speed" for="quick-speed-scale" title="Speed">
+                <span class="quick-control-icon" aria-hidden="true">»</span>
+                <input
+                  id="quick-speed-scale"
+                  type="range"
+                  min="0.25"
+                  max="10"
+                  value="3"
+                  step="0.25"
+                  aria-label="Simulation speed"
+                />
+                <strong id="quick-speed-label">3.00x</strong>
+              </label>
+              <label class="quick-control quick-control-pop" for="quick-population-input" title="Initial organisms">
+                <span class="quick-control-icon" aria-hidden="true">◎</span>
+                <input
+                  id="quick-population-input"
+                  type="number"
+                  min="6"
+                  max="500"
+                  step="1"
+                  value="500"
+                  aria-label="Initial organisms"
+                />
+              </label>
+              <label class="quick-control quick-control-mass" for="quick-total-material-input" title="Total material">
+                <span class="quick-control-icon" aria-hidden="true">Σ</span>
+                <input
+                  id="quick-total-material-input"
+                  type="number"
+                  min="800"
+                  max="60000"
+                  step="10"
+                  value="40000"
+                  aria-label="Total material"
+                />
+              </label>
+            </div>
+            <div class="stage-meta-actions">
+              <a
+                id="public-url-link"
+                class="corner-url-link"
+                href="https://genericalgoid-ryuyahora.vercel.app"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open public URL"
+                title="https://genericalgoid-ryuyahora.vercel.app"
+              >
+                genericalgoid-ryuyahora.vercel.app
+              </a>
+              <button
+                id="mode-toggle"
+                class="dev-mini-button"
+                type="button"
+                aria-label="Toggle fast mode"
+                title="Fast mode"
+              >
+                fast
+              </button>
+              <button
+                id="locale-toggle"
+                class="dev-mini-button"
+                type="button"
+                aria-label="Switch language"
+                title="Switch language"
+              >
+                日本語
+              </button>
+              <a
+                id="guide-link"
+                class="dev-mini-button"
+                href="./guide.html"
+                aria-label="Open guide page"
+                title="Guide page"
+              >
+                guide
+              </a>
+              <a
+                id="developer-link"
+                class="dev-mini-button"
+                href="./dev.html"
+                aria-label="Open developer page"
+                title="Developer page (D)"
+              >
+                dev
+              </a>
+            </div>
+          </div>
+          <div class="canvas-frame">
+            <canvas id="sim-canvas" aria-label="Evolution simulation canvas"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar-panel lineage-sidebar">
+        <section class="card lineage-card">
+          <p id="lineage-title" class="eyebrow">Dominant lineages</p>
+          <div id="lineage-list" class="lineage-list lineage-list-scroll"></div>
+          <section id="lineage-share-panel" class="lineage-share-panel" aria-label="Lineage share chart"></section>
+        </section>
+        <section class="card compact-card sidebar-stats-card stage-stats-strip" aria-label="Live stats">
+          <article class="stage-stat-chip">
+            <span id="main-label-population">Population</span>
+            <strong id="main-stat-population">0</strong>
+          </article>
+          <article class="stage-stat-chip">
+            <span id="main-label-biodiversity-entropy">Bio entropy</span>
+            <strong id="main-stat-biodiversity-entropy">0</strong>
+          </article>
+          <article class="stage-stat-chip">
+            <span id="main-label-total-mass">Total in world</span>
+            <strong id="main-stat-total-mass">0</strong>
+          </article>
+          <div class="stage-hover-anchor stage-stats-anchor">
+            <button
+              id="stats-peek-button"
+              class="stage-peek-button stage-peek-button-stats"
+              type="button"
+              aria-label="Show detailed stats"
+              title="Detailed stats"
+            >
+              Detailed stats
+            </button>
+            <div class="stage-hover-panel stage-stats-panel">
+              <dl class="metric-list metric-list-compact">
+                <div>
+                  <dt id="detail-label-lineages">Lineages</dt>
+                  <dd id="detail-stat-lineages">0</dd>
+                </div>
+                <div>
+                  <dt id="detail-label-avg-mass">Avg mass</dt>
+                  <dd id="detail-stat-avg-mass">0</dd>
+                </div>
+                <div>
+                  <dt id="detail-label-free-mass">Free mass</dt>
+                  <dd id="detail-stat-free-mass">0</dd>
+                </div>
+                <div>
+                  <dt id="detail-label-bound-mass">Bound in cells</dt>
+                  <dd id="detail-stat-bound-mass">0</dd>
+                </div>
+                <div>
+                  <dt id="detail-label-life-left">Avg life left</dt>
+                  <dd id="detail-stat-life-left">0</dd>
+                </div>
+                <div>
+                  <dt id="detail-label-births">Births</dt>
+                  <dd id="detail-stat-births">0</dd>
+                </div>
+                <div>
+                  <dt id="detail-label-deaths">Deaths</dt>
+                  <dd id="detail-stat-deaths">0</dd>
+                </div>
+                <div>
+                  <dt id="detail-label-drift">Material drift</dt>
+                  <dd id="detail-stat-drift">0</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+          <div id="stage-lag-indicator" class="stage-lag-indicator" title="Estimated compute lag">
+            <span class="stage-lag-dot" aria-hidden="true"></span>
+            <span id="main-label-lag">Lag</span>
+            <strong id="main-stat-lag">0.0 ms</strong>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <div id="menu-layer" class="menu-layer" hidden>
+      <div id="menu-backdrop" class="menu-backdrop"></div>
+      <aside id="menu-panel" class="menu-panel" aria-label="Simulation menu">
+        <div class="menu-top">
+          <strong id="menu-title">Menu</strong>
+          <button
+            id="close-menu"
+            class="icon-button icon-button-ghost"
+            type="button"
+            aria-label="Close menu"
+            title="Close menu (Esc)"
+          >
+            ×
+          </button>
+        </div>
+
+        <section class="card compact-card control-card">
+          <div class="menu-actions">
+            <button id="toggle-run" class="button-primary">Pause</button>
+            <button id="reset-world" class="button-secondary">Reset</button>
+            <button id="toggle-fullscreen" class="button-secondary">Fullscreen</button>
+          </div>
+          <label class="slider-group slider-group-compact" for="speed-scale">
+            <span id="menu-speed-label-text">Speed</span>
+            <input
+              id="speed-scale"
+              type="range"
+              min="0.25"
+              max="10"
+              value="3"
+              step="0.25"
+            />
+            <strong id="speed-label">3.00x</strong>
+          </label>
+          <div id="status-pill" class="status-pill">Running</div>
+        </section>
+
+        <section class="card compact-card control-card export-card">
+          <p id="export-title" class="eyebrow">Export</p>
+          <div class="menu-actions">
+            <button id="export-snapshot" class="button-secondary" type="button">PNG snapshot</button>
+            <button id="export-video" class="button-secondary" type="button">5s video</button>
+          </div>
+          <p id="export-note" class="inline-note">
+            Export the world canvas only. Video saves a 5 second WebM clip.
+          </p>
+        </section>
+
+        <section class="card compact-card audio-card">
+          <div class="audio-controls phylogeny-controls">
+            <p id="audio-title" class="eyebrow">Audio</p>
+            <div class="audio-toggle-group">
+              <label class="toggle-pill" for="bgm-toggle">
+                <input id="bgm-toggle" type="checkbox" />
+                <span id="bgm-toggle-label">BGM off</span>
+              </label>
+              <label class="toggle-pill" for="sfx-toggle">
+                <input id="sfx-toggle" type="checkbox" />
+                <span id="sfx-toggle-label">SFX off</span>
+              </label>
+            </div>
+          </div>
+          <div class="audio-level-stack">
+            <label class="slider-group slider-group-compact audio-slider-group" for="bgm-volume">
+              <span id="audio-bgm-volume-label">BGM volume</span>
+              <input
+                id="bgm-volume"
+                type="range"
+                min="0"
+                max="1"
+                step="0.05"
+                value="1"
+                aria-label="BGM volume"
+              />
+              <strong id="bgm-volume-readout">100%</strong>
+            </label>
+            <label class="slider-group slider-group-compact audio-slider-group" for="sfx-volume">
+              <span id="audio-sfx-volume-label">SFX volume</span>
+              <input
+                id="sfx-volume"
+                type="range"
+                min="0"
+                max="1"
+                step="0.05"
+                value="1"
+                aria-label="SFX volume"
+              />
+              <strong id="sfx-volume-readout">100%</strong>
+            </label>
+          </div>
+          <p id="audio-note" class="inline-note phylogeny-note">
+            Procedural ambient BGM and small sound effects. Browser audio starts after a click or key press.
+          </p>
+        </section>
+
+        <section class="card compact-card">
+          <p id="world-title" class="eyebrow">World</p>
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span id="label-population">Population</span>
+              <strong id="stat-population">0</strong>
+            </article>
+            <article class="stat-card">
+              <span id="label-lineages">Lineages</span>
+              <strong id="stat-lineages">0</strong>
+            </article>
+            <article class="stat-card">
+              <span id="label-avg-mass">Avg mass</span>
+              <strong id="stat-avg-mass">0</strong>
+            </article>
+            <article class="stat-card">
+              <span id="label-free-mass">Free mass</span>
+              <strong id="stat-free-mass">0</strong>
+            </article>
+            <article class="stat-card">
+              <span id="label-life-left">Avg life left</span>
+              <strong id="stat-life-left">0</strong>
+            </article>
+            <article class="stat-card">
+              <span id="label-biodiversity-entropy">Bio entropy</span>
+              <strong id="stat-biodiversity-entropy">0</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="card compact-card">
+          <p id="material-title" class="eyebrow">Material</p>
+          <dl class="metric-list">
+            <div>
+              <dt id="label-bound-mass">Bound in cells</dt>
+              <dd id="stat-bound-mass">0</dd>
+            </div>
+            <div>
+              <dt id="label-total-mass">Total in world</dt>
+              <dd id="stat-total-mass">0</dd>
+            </div>
+            <div>
+              <dt id="label-births">Births</dt>
+              <dd id="stat-births">0</dd>
+            </div>
+            <div>
+              <dt id="label-deaths">Deaths</dt>
+              <dd id="stat-deaths">0</dd>
+            </div>
+            <div>
+              <dt id="label-drift">Material drift</dt>
+              <dd id="stat-drift">0</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="card compact-card phylogeny-card">
+          <div class="phylogeny-controls">
+            <p id="phylogeny-title" class="eyebrow">Phylogeny</p>
+            <label class="toggle-pill" for="phylogeny-toggle">
+              <input id="phylogeny-toggle" type="checkbox" />
+              <span id="phylogeny-toggle-label">Off by default</span>
+            </label>
+          </div>
+          <p id="phylogeny-note" class="inline-note phylogeny-note">
+            Inferred from active lineage genomes. Off by default to avoid extra clustering work.
+          </p>
+          <div id="phylogeny-tree" class="phylogeny-tree">
+            <div class="snapshot-empty"><span id="phylogeny-empty">Enable to build the tree.</span></div>
+          </div>
+        </section>
+
+        <section class="card compact-card designer-card">
+          <div class="designer-head">
+            <p id="designer-title" class="eyebrow">Species designer</p>
+            <button id="designer-randomize" class="button-secondary designer-mini-button" type="button">Randomize</button>
+          </div>
+          <p id="designer-lead" class="inline-note designer-lead">
+            Build your own lineage, turn on deploy mode, then click the world to drop it in.
+          </p>
+          <div class="designer-grid designer-grid-top">
+            <label class="designer-field">
+              <span id="designer-label-name">Name</span>
+              <input id="designer-name" type="text" maxlength="4" value="Wolf" />
+            </label>
+            <label class="designer-field">
+              <span id="designer-label-mass">Spawn mass</span>
+              <input id="designer-mass" type="number" min="8" max="240" step="1" value="52" />
+            </label>
+            <label class="designer-field">
+              <span id="designer-label-slots">Slots</span>
+              <input id="designer-slot-count" type="number" min="3" max="7" step="1" value="5" />
+            </label>
+          </div>
+          <div class="designer-slot-grid">
+            <label class="designer-field"><span>S1</span><select id="designer-slot-0"><option value="melee">Melee</option><option value="ranged">Ranged</option><option value="shield">Shield</option></select></label>
+            <label class="designer-field"><span>S2</span><select id="designer-slot-1"><option value="melee">Melee</option><option value="ranged">Ranged</option><option value="shield">Shield</option></select></label>
+            <label class="designer-field"><span>S3</span><select id="designer-slot-2"><option value="melee">Melee</option><option value="ranged">Ranged</option><option value="shield">Shield</option></select></label>
+            <label class="designer-field"><span>S4</span><select id="designer-slot-3"><option value="melee">Melee</option><option value="ranged">Ranged</option><option value="shield">Shield</option></select></label>
+            <label class="designer-field"><span>S5</span><select id="designer-slot-4"><option value="melee">Melee</option><option value="ranged">Ranged</option><option value="shield">Shield</option></select></label>
+            <label class="designer-field"><span>S6</span><select id="designer-slot-5"><option value="melee">Melee</option><option value="ranged">Ranged</option><option value="shield">Shield</option></select></label>
+            <label class="designer-field"><span>S7</span><select id="designer-slot-6"><option value="melee">Melee</option><option value="ranged">Ranged</option><option value="shield">Shield</option></select></label>
+          </div>
+          <div class="designer-grid">
+            <label class="designer-field">
+              <span id="designer-label-core">Core</span>
+              <input id="designer-core-share" type="number" min="0.1" max="3" step="0.05" value="1.15" />
+            </label>
+            <label class="designer-field">
+              <span id="designer-label-motor">Motor</span>
+              <input id="designer-motor-share" type="number" min="0.1" max="3" step="0.05" value="0.82" />
+            </label>
+            <label class="designer-field">
+              <span id="designer-label-gadget">Gadget</span>
+              <input id="designer-gadget-share" type="number" min="0.1" max="3" step="0.05" value="1.24" />
+            </label>
+          </div>
+          <div class="designer-grid">
+            <label class="designer-field">
+              <span id="designer-label-sensor">Sensor</span>
+              <input id="designer-sensor" type="number" min="0.1" max="1.35" step="0.01" value="0.88" />
+            </label>
+            <label class="designer-field">
+              <span id="designer-label-cooperation">Coop</span>
+              <input id="designer-cooperation" type="number" min="0" max="1" step="0.01" value="0.18" />
+            </label>
+            <label class="designer-field">
+              <span id="designer-label-life">Life</span>
+              <input id="designer-life" type="number" min="12" max="400" step="1" value="150" />
+            </label>
+            <label class="designer-field">
+              <span id="designer-label-birth">Birth</span>
+              <input id="designer-birth-threshold" type="number" min="8" max="220" step="1" value="68" />
+            </label>
+            <label class="designer-field">
+              <span id="designer-label-bud">Bud</span>
+              <input id="designer-bud-fraction" type="number" min="0.24" max="0.6" step="0.01" value="0.36" />
+            </label>
+            <label class="designer-field">
+              <span id="designer-label-chase">Chase</span>
+              <input id="designer-approach-ratio" type="number" min="0.18" max="1.45" step="0.01" value="0.94" />
+            </label>
+            <label class="designer-field">
+              <span id="designer-label-avoid">Avoid</span>
+              <input id="designer-avoid-ratio" type="number" min="0.9" max="3.2" step="0.01" value="1.58" />
+            </label>
+          </div>
+          <div class="designer-grid">
+            <label class="designer-field">
+              <span id="designer-label-lobes">Lobes</span>
+              <input id="designer-shape-lobes" type="number" min="2" max="6" step="1" value="4" />
+            </label>
+            <label class="designer-field">
+              <span id="designer-label-blob">Blob</span>
+              <input id="designer-shape-amplitude" type="number" min="0.02" max="0.22" step="0.01" value="0.1" />
+            </label>
+            <label class="designer-field">
+              <span id="designer-label-wobble">Wobble</span>
+              <input id="designer-shape-wobble" type="number" min="0" max="0.16" step="0.01" value="0.05" />
+            </label>
+            <label class="designer-field">
+              <span id="designer-label-stretch">Stretch</span>
+              <input id="designer-shape-squish" type="number" min="0.82" max="1.22" step="0.01" value="1" />
+            </label>
+          </div>
+          <div class="designer-actions">
+            <button id="designer-deploy-toggle" class="button-primary" type="button">Deploy mode</button>
+          </div>
+          <div id="designer-preview" class="designer-preview"></div>
+        </section>
+
+        <section class="card compact-card legend-card">
+          <p id="legend-title" class="eyebrow">Legend</p>
+          <div id="gadget-legend" class="legend-list"></div>
+        </section>
+
+        <section class="card compact-card">
+          <p id="focus-title" class="eyebrow">Focus</p>
+          <div id="focus-cell" class="metric-list">
+            <div>
+              <dt id="focus-status-label">Status</dt>
+              <dd id="focus-status-empty">Hover a cell</dd>
+            </div>
+          </div>
+        </section>
+
+        <section class="card compact-card shortcuts-card">
+          <p id="keys-title" class="eyebrow">Keys</p>
+          <dl class="shortcut-list">
+            <div><dt><kbd>M</kbd></dt><dd id="shortcut-menu">Menu</dd></div>
+            <div><dt><kbd>Space</kbd></dt><dd id="shortcut-run">Pause / run</dd></div>
+            <div><dt><kbd>R</kbd></dt><dd id="shortcut-reset">Reset</dd></div>
+            <div><dt><kbd>F</kbd></dt><dd id="shortcut-fullscreen">Fullscreen</dd></div>
+            <div><dt><kbd>[</kbd><kbd>]</kbd> / <kbd>-</kbd><kbd>+</kbd></dt><dd id="shortcut-speed">Speed</dd></div>
+            <div><dt><kbd>P</kbd>+<kbd>Drag</kbd></dt><dd id="shortcut-feed">Feed</dd></div>
+            <div><dt><kbd>L</kbd>+<kbd>Hold</kbd></dt><dd id="shortcut-lightning">Lightning burst</dd></div>
+            <div><dt><kbd>S</kbd>+<kbd>Click</kbd></dt><dd id="shortcut-spring">Spring</dd></div>
+            <div><dt><kbd>H</kbd>+<kbd>Drag</kbd></dt><dd id="shortcut-mountain">Mountain</dd></div>
+            <div><dt><kbd>C</kbd>+<kbd>Click</kbd></dt><dd id="shortcut-design">Custom spawn</dd></div>
+            <div><dt><kbd>D</kbd></dt><dd id="shortcut-developer">Developer</dd></div>
+          </dl>
+        </section>
+      </aside>
+    </div>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

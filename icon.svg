@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="GenericAlgoid icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1f28" />
+      <stop offset="100%" stop-color="#143743" />
+    </linearGradient>
+    <linearGradient id="shell" x1="0.15" y1="0.12" x2="0.9" y2="0.9">
+      <stop offset="0%" stop-color="#8bf0d8" />
+      <stop offset="58%" stop-color="#48a9c6" />
+      <stop offset="100%" stop-color="#f7c86f" />
+    </linearGradient>
+    <radialGradient id="core" cx="45%" cy="38%" r="62%">
+      <stop offset="0%" stop-color="#fff3c5" />
+      <stop offset="40%" stop-color="#ffd577" />
+      <stop offset="100%" stop-color="#f08b4f" />
+    </radialGradient>
+  </defs>
+
+  <rect width="128" height="128" rx="28" fill="url(#bg)" />
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M64 17 L76 39" stroke="#8bf0d8" stroke-width="11" />
+    <path d="M64 17 L52 39" stroke="#8bf0d8" stroke-width="11" />
+    <path d="M23 88 L47 78" stroke="#58c2d7" stroke-width="11" />
+    <path d="M105 88 L81 78" stroke="#f7c86f" stroke-width="11" />
+
+    <circle cx="64" cy="69" r="34" fill="url(#shell)" stroke="#d9fff1" stroke-opacity="0.28" stroke-width="2.5" />
+    <circle cx="64" cy="69" r="16" fill="url(#core)" stroke="#fff7d7" stroke-opacity="0.35" stroke-width="2" />
+
+    <path d="M64 35 L64 25" stroke="#d9fff1" stroke-width="5" />
+    <path d="M31 85 L22 89" stroke="#d9fff1" stroke-width="5" />
+    <path d="M97 85 L106 89" stroke="#fff4d1" stroke-width="5" />
+  </g>
+</svg>

@@ -1,0 +1,25 @@
+{
+  "name": "genericalgoid",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "local-server": "node ./scripts/local-server.mjs start",
+    "local-server:restart": "node ./scripts/local-server.mjs restart",
+    "local-server:stop": "node ./scripts/local-server.mjs stop",
+    "local-server:status": "node ./scripts/local-server.mjs status",
+    "check": "node ./scripts/check.mjs",
+    "profile": "node ./scripts/profile.mjs",
+    "balance": "node ./scripts/balance.mjs",
+    "flock-balance": "node ./scripts/flock-balance.mjs",
+    "bias-check": "node ./scripts/bias-check.mjs",
+    "terrain-balance": "node ./scripts/terrain-balance.mjs",
+    "ecosystem-balance": "node ./scripts/ecosystem-balance.mjs",
+    "dominance-balance": "node ./scripts/dominance-balance.mjs",
+    "material-dominance-balance": "node ./scripts/material-dominance-balance.mjs",
+    "diversity-balance": "node ./scripts/diversity-balance.mjs",
+    "regional-balance": "node ./scripts/regional-balance.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.59.1"
+  }
+}

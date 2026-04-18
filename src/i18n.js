@@ -1,0 +1,825 @@
+export const LOCALE_STORAGE_KEY = "generic-algoid-locale";
+export const DEFAULT_LOCALE = "en";
+export const SUPPORTED_LOCALES = ["en", "ja"];
+
+const MESSAGES = {
+  en: {
+    "common.switchJapanese": "Switch to Japanese",
+    "common.switchEnglish": "Switch to English",
+    "common.capabilityChart": "Capability chart",
+    "common.gadgetRole.attack": "attack",
+    "common.gadgetRole.defense": "defense",
+
+    "app.pageTitle": "GenericAlgoid | Toroidal Evolution",
+    "app.toggleMenuAria": "Toggle menu",
+    "app.toggleMenuTitle": "Menu (M)",
+    "app.quickControlsAria": "Quick controls",
+    "app.quickSpeedTitle": "Speed",
+    "app.quickSpeedAria": "Simulation speed",
+    "app.quickPopulationTitle": "Initial organisms",
+    "app.quickPopulationAria": "Initial organisms",
+    "app.quickMaterialTitle": "Total material",
+    "app.quickMaterialAria": "Total material",
+    "app.quickAudioTitle": "Audio volume",
+    "app.quickAudioAria": "Audio volume",
+    "app.modeToggle.fast": "fast",
+    "app.modeToggle.normal": "normal",
+    "app.modeToggle.fastTitle": "Switch to fast mode",
+    "app.modeToggle.normalTitle": "Switch to normal mode",
+    "app.mountainToggle.off": "mount",
+    "app.mountainToggle.on": "mount:on",
+    "app.mountainToggle.title": "Mountain sculpt (H + drag)",
+    "app.guideLinkAria": "Open guide page",
+    "app.guideLinkTitle": "Guide page",
+    "app.devLinkAria": "Open developer page",
+    "app.devLinkTitle": "Developer page (D)",
+    "app.commandsPeek": "Commands",
+    "app.commandsPeekTitle": "Command list",
+    "app.statsPeek": "Detailed stats",
+    "app.statsPeekTitle": "Detailed stats",
+    "app.shortcutsAria": "Keyboard shortcuts",
+    "app.canvasAria": "Evolution simulation canvas",
+    "app.lineagesTitle": "Dominant lineages",
+    "app.lineageShareTitle": "Lineage share",
+    "app.lineageShareOthers": "Others",
+    "trait.forager": "Forager",
+    "trait.wary": "Wary",
+    "trait.hunter": "Hunter",
+    "trait.flocker": "Flocker",
+    "trait.cruiser": "Cruiser",
+    "trait.sprinter": "Sprinter",
+    "trait.bulwark": "Bulwark",
+    "trait.duelist": "Duelist",
+    "trait.skirmisher": "Skirmisher",
+    "trait.brooder": "Brooder",
+    "app.menuPanelAria": "Simulation menu",
+    "app.menuTitle": "Menu",
+    "app.closeMenuAria": "Close menu",
+    "app.closeMenuTitle": "Close menu (Esc)",
+    "app.pause": "Pause",
+    "app.resume": "Resume",
+    "app.reset": "Reset",
+    "app.fullscreen": "Fullscreen",
+    "app.window": "Window",
+    "app.exportTitle": "Export",
+    "app.exportSnapshot": "PNG snapshot",
+    "app.exportVideo": "5s video",
+    "app.exportNote": "Export the world canvas only. Video saves a 5 second WebM clip.",
+    "app.speed": "Speed",
+    "app.running": "Running",
+    "app.paused": "Paused",
+    "app.worldTitle": "World",
+    "app.population": "Population",
+    "app.lineages": "Lineages",
+    "app.avgMass": "Avg mass",
+    "app.freeMass": "Free mass",
+    "app.avgLifeLeft": "Avg life left",
+    "app.biodiversityEntropy": "Bio entropy",
+    "app.computeLag": "Lag",
+    "app.computeLagTitle": "Estimated compute lag against a 60 fps budget",
+    "app.materialTitle": "Material",
+    "app.boundMass": "Bound in cells",
+    "app.totalMass": "Total in world",
+    "app.births": "Births",
+    "app.deaths": "Deaths",
+    "app.materialDrift": "Material drift",
+    "app.audioTitle": "Audio",
+    "app.audioBgmToggle.off": "BGM off",
+    "app.audioBgmToggle.on": "BGM on",
+    "app.audioSfxToggle.off": "SFX off",
+    "app.audioSfxToggle.on": "SFX on",
+    "app.audioBgmVolume": "BGM volume",
+    "app.audioSfxVolume": "SFX volume",
+    "app.audioNote":
+      "Noru's 'They' plays when available, with procedural fallback. Sound effects stay independent. Browser audio starts after a click or key press.",
+    "app.phylogenyTitle": "Phylogeny",
+    "app.phylogenyToggle.off": "Off by default",
+    "app.phylogenyToggle.on": "Tree on",
+    "app.phylogenyNote":
+      "Inferred from active lineage genomes. Off by default to avoid extra clustering work.",
+    "app.phylogenyEmpty": "Enable to build the tree.",
+    "app.phylogenyWaiting": "Waiting for enough active lineages.",
+    "app.designerTitle": "Species designer",
+    "app.designerLead":
+      "Build your own lineage, turn on deploy mode, then click the world to drop it in.",
+    "app.designerName": "Name",
+    "app.designerMass": "Spawn mass",
+    "app.designerSlots": "Slots",
+    "app.designerCore": "Core",
+    "app.designerMotor": "Motor",
+    "app.designerGadget": "Gadget",
+    "app.designerSensor": "Sensor",
+    "app.designerCooperation": "Coop",
+    "app.designerLife": "Life",
+    "app.designerBirth": "Birth",
+    "app.designerBud": "Bud",
+    "app.designerChase": "Chase",
+    "app.designerAvoid": "Avoid",
+    "app.designerLobes": "Lobes",
+    "app.designerBlob": "Blob",
+    "app.designerWobble": "Wobble",
+    "app.designerStretch": "Stretch",
+    "app.designerRandomize": "Randomize",
+    "app.designerDeploy.off": "Deploy mode",
+    "app.designerDeploy.on": "Deploy mode: on",
+    "app.designerPreviewPattern": "Pattern",
+    "app.designerPreviewMass": "Mass",
+    "app.designerPreviewBirth": "Birth",
+    "app.legendTitle": "Legend",
+    "app.focusTitle": "Focus",
+    "app.focusStatus": "Status",
+    "app.hoverCell": "Hover a cell",
+    "app.keysTitle": "Keys",
+    "app.shortcut.menu": "Menu",
+    "app.shortcut.run": "Pause / run",
+    "app.shortcut.reset": "Reset",
+    "app.shortcut.fullscreen": "Fullscreen",
+    "app.shortcut.speed": "Speed",
+    "app.shortcut.feed": "Feed",
+    "app.shortcut.lightning": "Lightning burst",
+    "app.shortcut.spring": "Spring",
+    "app.shortcut.mountain": "Mountain",
+    "app.shortcut.design": "Custom spawn",
+    "app.shortcut.developer": "Developer",
+    "app.hint.menu": "<kbd>M</kbd> menu",
+    "app.hint.run": "<kbd>Space</kbd> run",
+    "app.hint.reset": "<kbd>R</kbd> reset",
+    "app.hint.full": "<kbd>F</kbd> full",
+    "app.hint.speed": "<kbd>[</kbd><kbd>]</kbd> / <kbd>-</kbd><kbd>+</kbd> speed",
+    "app.hint.drop": "<kbd>P</kbd>+<kbd>Click</kbd>/<kbd>Drag</kbd> feed",
+    "app.hint.lightning": "<kbd>L</kbd>+<kbd>Hold</kbd> lightning",
+    "app.hint.spring": "<kbd>S</kbd>+<kbd>Click</kbd> spring",
+    "app.hint.mountain": "<kbd>H</kbd>+<kbd>Drag</kbd> mountain",
+    "app.hint.design": "<kbd>C</kbd>+<kbd>Click</kbd> custom spawn",
+    "app.hint.dev": "<kbd>D</kbd> dev",
+    "app.hintLabel.menu": "Menu",
+    "app.hintLabel.run": "Run",
+    "app.hintLabel.reset": "Reset",
+    "app.hintLabel.full": "Full",
+    "app.hintLabel.speed": "Speed",
+    "app.hintLabel.feed": "Feed",
+    "app.hintLabel.lightning": "Lightning",
+    "app.hintLabel.spring": "Spring",
+    "app.hintLabel.mountain": "Mountain",
+    "app.hintLabel.design": "Custom",
+    "app.hintLabel.dev": "Dev",
+    "app.none": "none",
+    "app.focus.noneTitle": "No cell",
+    "app.focus.noneBody": "Click to pin. Hover still previews.",
+    "app.focus.pinned": "Pinned",
+    "app.focus.hover": "Hover",
+    "app.focus.pinnedCell": "Pinned cell",
+    "app.focus.hoverCell": "Hover cell",
+    "app.focus.mass": "Mass",
+    "app.focus.lifeLeft": "Life left",
+    "app.focus.age": "Age",
+    "app.focus.mode": "Mode",
+    "app.status.configUpdated": "Config updated from developer page",
+    "app.status.ultrawide": "Ultrawide world loaded",
+    "app.status.standard": "Standard world loaded",
+    "app.status.worldReseeded": "World reseeded",
+    "app.status.fullscreenUnavailable": "Fullscreen unavailable",
+    "app.status.materialCap": "Total material cap reached",
+    "app.status.dropped": "Dropped {mass} mass",
+    "app.status.springCap": "Spring cap reached",
+    "app.status.springPlaced": "Spring placed",
+    "app.status.springRemoved": "Spring removed",
+    "app.status.lightning": "Lightning erased {kills} cells · -{mass} mass",
+    "app.status.lightningMixed":
+      "Lightning erased {kills} cells and {springs} springs · -{mass} mass",
+    "app.status.lightningSpring": "Lightning cleared {springs} springs",
+    "app.status.lightningTerrain": "Lightning carved the terrain",
+    "app.status.audioBgmOn": "BGM on",
+    "app.status.audioBgmOff": "BGM off",
+    "app.status.audioSfxOn": "SFX on",
+    "app.status.audioSfxOff": "SFX off",
+    "app.status.audioAwaitGesture": "Audio armed. Click or press a key to start playback.",
+    "app.status.fastOn": "Fast mode on",
+    "app.status.fastOff": "Normal mode restored",
+    "app.status.fastBlocked": "Fast mode disables direct world editing",
+    "app.status.exportSnapshotSaved": "Saved snapshot: {name}",
+    "app.status.exportSnapshotFailed": "Snapshot export failed",
+    "app.status.exportVideoStarting": "Recording {seconds}s world clip…",
+    "app.status.exportVideoBusy": "Video export is already running",
+    "app.status.exportVideoSaved": "Saved video: {name}",
+    "app.status.exportVideoFailed": "Video export failed",
+    "app.status.exportVideoUnsupported": "This browser cannot record the world canvas",
+    "app.status.mountainArmed": "Mountain mode armed",
+    "app.status.mountainDisarmed": "Mountain mode off",
+    "app.status.mountainRaised": "Raised terrain",
+    "app.status.mountainDisabled": "Terrain is disabled",
+    "app.status.designerArmed": "Deploy mode armed",
+    "app.status.designerDisarmed": "Deploy mode off",
+    "app.status.designerSpawned": "Spawned {name} · +{mass} mass",
+
+    "dev.pageTitle": "GenericAlgoid | Developer Panel",
+    "dev.headerEyebrow": "Developer page",
+    "dev.headerTitle": "Inspect and tune the evolutionary parameters.",
+    "dev.headerLead":
+      "Values are persisted in local storage. Saving here resets the main simulation with the new material economy and combat profile.",
+    "dev.back": "Back to simulation",
+    "dev.save": "Save changes",
+    "dev.reload": "Reload saved",
+    "dev.defaults": "Restore defaults",
+    "dev.snapshotTitle": "Live snapshot",
+    "dev.derivedTitle": "Derived checks",
+    "dev.exportTitle": "Config export",
+    "dev.previewTitle": "Developer preview",
+    "dev.previewLead":
+      "Draft configuration runs locally here. Vision rings are drawn for every cell.",
+    "dev.previewCanvasAria": "Developer preview with sensory ranges",
+    "dev.parametersTitle": "Parameters",
+    "dev.state.editing": "Editing the draft configuration.",
+    "dev.state.unsaved": "Unsaved draft changes.",
+    "dev.state.matches": "Draft matches saved config.",
+    "dev.state.saved": "Saved to local storage. The simulation page will reset.",
+    "dev.state.reloaded": "Reloaded the saved configuration.",
+    "dev.state.defaults": "Loaded defaults into the draft. Save to apply them.",
+    "dev.snapshotEmpty": "Open the simulation page to stream live stats.",
+    "dev.derived.initialBiomass": "Initial biomass target",
+    "dev.derived.initialFree": "Initial free material",
+    "dev.derived.meanUpkeep": "Mean spawn upkeep / sec",
+    "dev.derived.minViable": "Min viable aggregate",
+    "dev.derived.nodeDensity": "Node density target",
+    "dev.snapshot.population": "Population",
+    "dev.snapshot.lineages": "Lineages",
+    "dev.snapshot.avgMass": "Avg mass",
+    "dev.snapshot.freeMaterial": "Free material",
+    "dev.snapshot.totalMaterial": "Total material",
+    "dev.snapshot.avgLifeLeft": "Avg life left",
+    "dev.snapshot.biodiversityEntropy": "Bio entropy",
+    "dev.snapshot.birthsDeaths": "Births / deaths"
+  },
+  ja: {
+    "common.switchJapanese": "日本語に切り替え",
+    "common.switchEnglish": "英語に切り替え",
+    "common.capabilityChart": "能力チャート",
+    "common.gadgetRole.attack": "攻撃",
+    "common.gadgetRole.defense": "防御",
+
+    "app.pageTitle": "GenericAlgoid | トーラス進化",
+    "app.toggleMenuAria": "メニューを開閉",
+    "app.toggleMenuTitle": "メニュー (M)",
+    "app.quickControlsAria": "クイック操作",
+    "app.quickSpeedTitle": "速度",
+    "app.quickSpeedAria": "シミュレーション速度",
+    "app.quickPopulationTitle": "初期個体数",
+    "app.quickPopulationAria": "初期個体数",
+    "app.quickMaterialTitle": "総素材量",
+    "app.quickMaterialAria": "総素材量",
+    "app.quickAudioTitle": "音量",
+    "app.quickAudioAria": "音量",
+    "app.modeToggle.fast": "高速",
+    "app.modeToggle.normal": "通常",
+    "app.modeToggle.fastTitle": "高速モードに切り替え",
+    "app.modeToggle.normalTitle": "通常モードに戻す",
+    "app.mountainToggle.off": "山",
+    "app.mountainToggle.on": "山:on",
+    "app.mountainToggle.title": "山形成 (H + ドラッグ)",
+    "app.guideLinkAria": "解説ページを開く",
+    "app.guideLinkTitle": "解説ページ",
+    "app.devLinkAria": "開発者ページを開く",
+    "app.devLinkTitle": "開発者ページ (D)",
+    "app.commandsPeek": "コマンド一覧",
+    "app.commandsPeekTitle": "コマンド一覧",
+    "app.statsPeek": "詳細な統計",
+    "app.statsPeekTitle": "詳細な統計",
+    "app.shortcutsAria": "キーボードショートカット",
+    "app.canvasAria": "進化シミュレーションキャンバス",
+    "app.lineagesTitle": "優勢系統",
+    "app.lineageShareTitle": "系統シェア",
+    "app.lineageShareOthers": "その他",
+    "trait.forager": "採食家",
+    "trait.wary": "用心深い",
+    "trait.hunter": "狩猟型",
+    "trait.flocker": "群行型",
+    "trait.cruiser": "巡航型",
+    "trait.sprinter": "俊足",
+    "trait.bulwark": "重装型",
+    "trait.duelist": "接近戦",
+    "trait.skirmisher": "遊撃型",
+    "trait.brooder": "多産",
+    "app.menuPanelAria": "シミュレーションメニュー",
+    "app.menuTitle": "メニュー",
+    "app.closeMenuAria": "メニューを閉じる",
+    "app.closeMenuTitle": "メニューを閉じる (Esc)",
+    "app.pause": "停止",
+    "app.resume": "再開",
+    "app.reset": "リセット",
+    "app.fullscreen": "全画面",
+    "app.window": "通常表示",
+    "app.exportTitle": "出力",
+    "app.exportSnapshot": "PNG画像",
+    "app.exportVideo": "5秒動画",
+    "app.exportNote": "世界キャンバスだけを書き出します。動画は 5 秒の WebM です。",
+    "app.speed": "速度",
+    "app.running": "実行中",
+    "app.paused": "停止中",
+    "app.worldTitle": "世界",
+    "app.population": "個体数",
+    "app.lineages": "系統数",
+    "app.avgMass": "平均質量",
+    "app.freeMass": "遊離素材",
+    "app.avgLifeLeft": "平均残寿命",
+    "app.biodiversityEntropy": "多様性 entropy",
+    "app.computeLag": "遅延",
+    "app.computeLagTitle": "60fps 予算に対する推定計算遅延",
+    "app.materialTitle": "素材",
+    "app.boundMass": "個体内素材",
+    "app.totalMass": "世界総量",
+    "app.births": "誕生数",
+    "app.deaths": "死亡数",
+    "app.materialDrift": "素材ドリフト",
+    "app.audioTitle": "音",
+    "app.audioBgmToggle.off": "BGMオフ",
+    "app.audioBgmToggle.on": "BGMオン",
+    "app.audioSfxToggle.off": "効果音オフ",
+    "app.audioSfxToggle.on": "効果音オン",
+    "app.audioBgmVolume": "BGM音量",
+    "app.audioSfxVolume": "効果音音量",
+    "app.audioNote":
+      "BGM は のるさんの『They』があればそれを優先し、無ければ合成音に戻ります。効果音は独立です。ブラウザの都合で、クリックかキー入力の後に音が始まります。",
+    "app.phylogenyTitle": "系統樹",
+    "app.phylogenyToggle.off": "既定ではオフ",
+    "app.phylogenyToggle.on": "系統樹オン",
+    "app.phylogenyNote":
+      "現在生きている系統の遺伝的近さから推定した木です。余計なクラスタリング計算を避けるため既定ではオフです。",
+    "app.phylogenyEmpty": "オンにすると系統樹を作ります。",
+    "app.phylogenyWaiting": "系統樹を出すだけの十分な生存系統がまだありません。",
+    "app.designerTitle": "種の設計",
+    "app.designerLead":
+      "自作の系統を組み、投入モードをオンにしてから世界をクリックすると投入できます。",
+    "app.designerName": "名前",
+    "app.designerMass": "投入質量",
+    "app.designerSlots": "スロット",
+    "app.designerCore": "コア",
+    "app.designerMotor": "モーター",
+    "app.designerGadget": "ガジェット",
+    "app.designerSensor": "感知",
+    "app.designerCooperation": "協調",
+    "app.designerLife": "寿命",
+    "app.designerBirth": "出産",
+    "app.designerBud": "分裂率",
+    "app.designerChase": "接近",
+    "app.designerAvoid": "回避",
+    "app.designerLobes": "ローブ数",
+    "app.designerBlob": "ふくらみ",
+    "app.designerWobble": "うねり",
+    "app.designerStretch": "伸縮",
+    "app.designerRandomize": "ランダム化",
+    "app.designerDeploy.off": "投入モード",
+    "app.designerDeploy.on": "投入モード: オン",
+    "app.designerPreviewPattern": "構成",
+    "app.designerPreviewMass": "質量",
+    "app.designerPreviewBirth": "出産",
+    "app.legendTitle": "凡例",
+    "app.focusTitle": "注目個体",
+    "app.focusStatus": "状態",
+    "app.hoverCell": "個体にカーソルを合わせる",
+    "app.keysTitle": "操作",
+    "app.shortcut.menu": "メニュー",
+    "app.shortcut.run": "停止 / 再開",
+    "app.shortcut.reset": "リセット",
+    "app.shortcut.fullscreen": "全画面",
+    "app.shortcut.speed": "速度",
+    "app.shortcut.feed": "エサやり",
+    "app.shortcut.lightning": "雷バースト",
+    "app.shortcut.spring": "泉",
+    "app.shortcut.mountain": "山",
+    "app.shortcut.design": "設計種投入",
+    "app.shortcut.developer": "開発",
+    "app.hint.menu": "<kbd>M</kbd> メニュー",
+    "app.hint.run": "<kbd>Space</kbd> 実行",
+    "app.hint.reset": "<kbd>R</kbd> リセット",
+    "app.hint.full": "<kbd>F</kbd> 全画面",
+    "app.hint.speed": "<kbd>[</kbd><kbd>]</kbd> / <kbd>-</kbd><kbd>+</kbd> 速度",
+    "app.hint.drop": "<kbd>P</kbd>+<kbd>Click</kbd>/<kbd>Drag</kbd> エサやり",
+    "app.hint.lightning": "<kbd>L</kbd>+<kbd>長押し</kbd> 雷",
+    "app.hint.spring": "<kbd>S</kbd>+<kbd>Click</kbd> 泉",
+    "app.hint.mountain": "<kbd>H</kbd>+<kbd>Drag</kbd> 山",
+    "app.hint.design": "<kbd>C</kbd>+<kbd>Click</kbd> 設計種投入",
+    "app.hint.dev": "<kbd>D</kbd> 開発",
+    "app.hintLabel.menu": "メニュー",
+    "app.hintLabel.run": "実行",
+    "app.hintLabel.reset": "リセット",
+    "app.hintLabel.full": "全画面",
+    "app.hintLabel.speed": "速度",
+    "app.hintLabel.feed": "エサやり",
+    "app.hintLabel.lightning": "雷",
+    "app.hintLabel.spring": "泉",
+    "app.hintLabel.mountain": "山",
+    "app.hintLabel.design": "設計種",
+    "app.hintLabel.dev": "開発",
+    "app.none": "なし",
+    "app.focus.noneTitle": "個体なし",
+    "app.focus.noneBody": "クリックで固定できます。ホバーでも一時表示されます。",
+    "app.focus.pinned": "固定",
+    "app.focus.hover": "ホバー",
+    "app.focus.pinnedCell": "固定個体",
+    "app.focus.hoverCell": "ホバー個体",
+    "app.focus.mass": "質量",
+    "app.focus.lifeLeft": "残寿命",
+    "app.focus.age": "年齢",
+    "app.focus.mode": "表示",
+    "app.status.configUpdated": "開発者ページの設定を反映しました",
+    "app.status.ultrawide": "ウルトラワイド世界を読み込みました",
+    "app.status.standard": "通常世界を読み込みました",
+    "app.status.worldReseeded": "世界を再生成しました",
+    "app.status.fullscreenUnavailable": "全画面にできませんでした",
+    "app.status.materialCap": "総素材量の上限です",
+    "app.status.dropped": "エサ {mass} を配置",
+    "app.status.springCap": "泉の上限です",
+    "app.status.springPlaced": "泉を設置しました",
+    "app.status.springRemoved": "泉を撤去しました",
+    "app.status.lightning": "雷で {kills} 体消滅 · 素材 -{mass}",
+    "app.status.lightningMixed": "雷で {kills} 体と泉 {springs} 個を消去 · 素材 -{mass}",
+    "app.status.lightningSpring": "雷で泉を {springs} 個消去",
+    "app.status.lightningTerrain": "雷で地形を削りました",
+    "app.status.audioBgmOn": "BGMオン",
+    "app.status.audioBgmOff": "BGMオフ",
+    "app.status.audioSfxOn": "効果音オン",
+    "app.status.audioSfxOff": "効果音オフ",
+    "app.status.audioAwaitGesture": "音声を有効化しました。クリックかキー入力で再生を始めます。",
+    "app.status.fastOn": "高速モードをオンにしました",
+    "app.status.fastOff": "通常モードに戻しました",
+    "app.status.fastBlocked": "高速モードでは世界への直接介入を止めています",
+    "app.status.exportSnapshotSaved": "画像を保存: {name}",
+    "app.status.exportSnapshotFailed": "画像出力に失敗しました",
+    "app.status.exportVideoStarting": "{seconds}秒の動画を録画中…",
+    "app.status.exportVideoBusy": "動画出力はすでに進行中です",
+    "app.status.exportVideoSaved": "動画を保存: {name}",
+    "app.status.exportVideoFailed": "動画出力に失敗しました",
+    "app.status.exportVideoUnsupported": "このブラウザでは世界の動画出力ができません",
+    "app.status.mountainArmed": "山モードをオンにしました",
+    "app.status.mountainDisarmed": "山モードをオフにしました",
+    "app.status.mountainRaised": "地形を盛り上げました",
+    "app.status.mountainDisabled": "地形が無効です",
+    "app.status.designerArmed": "投入モードをオンにしました",
+    "app.status.designerDisarmed": "投入モードをオフにしました",
+    "app.status.designerSpawned": "{name} を投入 · 素材 +{mass}",
+
+    "dev.pageTitle": "GenericAlgoid | 開発者パネル",
+    "dev.headerEyebrow": "開発者ページ",
+    "dev.headerTitle": "進化パラメータを確認して調整する。",
+    "dev.headerLead":
+      "ここで保存した値はローカルストレージに保持され、メインのシミュレーションは新しい素材経済と戦闘設定で再起動されます。",
+    "dev.back": "シミュレーションへ戻る",
+    "dev.save": "変更を保存",
+    "dev.reload": "保存済みを再読込",
+    "dev.defaults": "既定値に戻す",
+    "dev.snapshotTitle": "ライブスナップショット",
+    "dev.derivedTitle": "派生チェック",
+    "dev.exportTitle": "設定エクスポート",
+    "dev.previewTitle": "開発者プレビュー",
+    "dev.previewLead":
+      "下書き設定をこの場でローカル実行します。全個体の視界リングも描画されます。",
+    "dev.previewCanvasAria": "視界範囲付きの開発者プレビュー",
+    "dev.parametersTitle": "パラメータ",
+    "dev.state.editing": "下書き設定を編集中です。",
+    "dev.state.unsaved": "未保存の変更があります。",
+    "dev.state.matches": "下書きは保存済み設定と一致しています。",
+    "dev.state.saved": "ローカルストレージに保存しました。シミュレーションページはリセットされます。",
+    "dev.state.reloaded": "保存済み設定を読み込み直しました。",
+    "dev.state.defaults": "既定値を下書きに読み込みました。反映するには保存してください。",
+    "dev.snapshotEmpty": "ライブ統計を受け取るにはシミュレーションページを開いてください。",
+    "dev.derived.initialBiomass": "初期生体質量目標",
+    "dev.derived.initialFree": "初期遊離素材",
+    "dev.derived.meanUpkeep": "平均初期維持費 / 秒",
+    "dev.derived.minViable": "最小生存総量",
+    "dev.derived.nodeDensity": "ノード密度目標",
+    "dev.snapshot.population": "個体数",
+    "dev.snapshot.lineages": "系統数",
+    "dev.snapshot.avgMass": "平均質量",
+    "dev.snapshot.freeMaterial": "遊離素材",
+    "dev.snapshot.totalMaterial": "総素材量",
+    "dev.snapshot.avgLifeLeft": "平均残寿命",
+    "dev.snapshot.biodiversityEntropy": "多様性 entropy",
+    "dev.snapshot.birthsDeaths": "誕生 / 死亡"
+  }
+};
+
+const CONFIG_TEXT_TRANSLATIONS = {
+  ja: {
+    Melee: "近接",
+    Ranged: "遠隔",
+    Shield: "防御",
+    "World envelope": "世界設定",
+    "Arena size and the closed material budget. Raising total material increases carrying capacity immediately.":
+      "世界サイズと閉じた素材予算です。総素材量を増やすと、即座に収容力が上がります。",
+    "World width": "世界の横幅",
+    "Logical width of the toroidal arena.": "トーラス世界の論理的な横幅です。",
+    "World height": "世界の高さ",
+    "Logical height of the toroidal arena.": "トーラス世界の論理的な高さです。",
+    "Total material": "総素材量",
+    "Mass conserved across cells and free debris.": "個体と遊離素材のあいだで保存される総量です。",
+    "Initial organisms": "初期個体数",
+    "Number of initial cells seeded into the world.": "初期配置される個体数です。",
+    "Initial organism mass": "初期個体質量",
+    "Average starting mass before the remaining material becomes debris.":
+      "残りが遊離素材になる前の、個体1体あたりの平均初期質量です。",
+    "Resource node cap": "素材ノード上限",
+    "Upper bound on how many debris packets can exist at once.":
+      "同時に存在できる素材ノード数の上限です。",
+    "Locomotion and life cycle": "移動とライフサイクル",
+    "These parameters define viability, movement, sensing, intake rate, and the cost of budding offspring.":
+      "生存条件、移動、感知、摂取速度、繁殖コストを定義します。",
+    "Minimum viable core": "最小生存コア",
+    "Cells die once their core drops below this mass.": "コア質量がこの値を下回ると死亡します。",
+    "Minimum viable mass": "最小生存質量",
+    "Absolute lower size limit for a living cell.": "生きた個体として維持できる絶対的な下限サイズです。",
+    "Minimum birth threshold": "最小出産閾値",
+    "Hard lower bound for the inherited reproduction threshold mass.":
+      "遺伝する繁殖閾値質量に対する絶対下限です。",
+    "Base lifespan": "基準寿命",
+    "Reference lifetime in seconds before age death starts occurring.":
+      "寿命死が起こり始める基準寿命です。",
+    "Lifespan spread": "寿命ばらつき",
+    "Random and mutational variation applied around the base lifespan.":
+      "基準寿命の周囲に加えるランダム変動と突然変異の幅です。",
+    "Base turn rate": "基礎旋回速度",
+    "Angular agility before motor mass is considered.":
+      "モーター質量を加味する前の基本旋回性能です。",
+    "Motor turn factor": "モーター旋回係数",
+    "Extra turn speed granted by motor allocation.": "モーター配分で増える旋回速度です。",
+    "Base thrust": "基礎推進力",
+    "Forward acceleration available to every cell.": "全個体が持つ前進加速度です。",
+    "Motor thrust factor": "モーター推進係数",
+    "How strongly motor mass scales acceleration.": "モーター質量が加速度に効く強さです。",
+    "Drag per second": "毎秒減衰",
+    "Higher values damp velocity faster.": "値が大きいほど速度減衰が強くなります。",
+    "Base sensing range": "基礎感知範囲",
+    "Minimum radius used to look for prey, threats, and debris.":
+      "敵・危険・素材を探す最小半径です。",
+    "Sensing mass factor": "感知質量係数",
+    "Extra sensing range unlocked by body mass and genome traits.":
+      "体サイズと遺伝子で増える感知範囲です。",
+    "Debris intake rate": "素材摂取速度",
+    "Maximum debris mass consumed per second while in contact.":
+      "接触中に毎秒取り込める素材量の上限です。",
+    "Budding cooldown": "繁殖クールダウン",
+    "Ignored in forced budding mode. Cells above threshold split immediately.":
+      "強制繁殖モードでは無視されます。閾値超え個体は即時分裂します。",
+    "Budding tax": "繁殖税",
+    "Fraction of the exported mass shed as debris during reproduction.":
+      "繁殖時に遊離素材として失われる質量割合です。",
+    "Wander rate": "ランダム歩行頻度",
+    "How aggressively cells refresh their random-walk heading.":
+      "ランダムウォークの進行方向をどれだけ頻繁に更新するかです。",
+    "Birth scatter": "誕生散乱",
+    "Distance between parent and child after budding.": "分裂後の親子の距離です。",
+    "Same-species spacing": "同種間距離",
+    "Extra body-edge clearance same-species cells try to preserve while schooling.":
+      "群れ中に同種同士が保とうとする追加の最小間隔です。",
+    Flocking: "群れ行動",
+    "Local Boids-style weights for same-species grouping. These tune neighborhood size and the balance of alignment, cohesion, and separation.":
+      "同種の群れに対する局所 Boids 重みです。近傍サイズと整列・凝集・分離のバランスを調整します。",
+    "Neighborhood factor": "近傍係数",
+    "Fraction of visual range used for same-species Boids interactions.":
+      "同種 Boids 相互作用に使う視界範囲の割合です。",
+    "Flock influence": "群れ影響度",
+    "Overall strength of Boids steering relative to chasing and wandering.":
+      "追跡やランダム歩行に対する群れ操舵の総合強度です。",
+    "Alignment weight": "整列重み",
+    "How strongly cells align their direction with nearby conspecifics.":
+      "近くの同種と進行方向を揃える強さです。",
+    "Cohesion weight": "凝集重み",
+    "How strongly cells steer toward the local same-species center.":
+      "近くの同種集団の中心へ寄る強さです。",
+    "Separation weight": "分離重み",
+    "How strongly cells push away when the flock gets too dense.":
+      "密集しすぎたときに押し広げる強さです。",
+    "Count influence": "個体数影響",
+    "Extra Boids pull that appears as more same-species neighbors join the local school.":
+      "近くの同種が増えるほど追加される群れ効果です。",
+    "Material economy": "素材経済",
+    "Upkeep and combat spills stay local. Dead cells can shatter into nearby debris, with part of that debris recycled into random clustered patches elsewhere in the arena.":
+      "維持費と戦闘流出は局所に残ります。死体は近場の素材に砕け、その一部は世界の別の場所へ偏って再配置されます。",
+    "Base upkeep": "基礎維持費",
+    "Mass every cell leaks each second before body size is counted.":
+      "体サイズを考慮する前に、全個体が毎秒失う素材量です。",
+    "Mass upkeep factor": "質量維持係数",
+    "Extra upkeep per total body mass.": "体全体の質量に応じて増える維持費です。",
+    "Gadget upkeep factor": "ガジェット維持係数",
+    "Heavy directional gadgets cost more to maintain.":
+      "重い方向ガジェットほど維持費が増えます。",
+    "Corpse loot fraction": "死体戦利品割合",
+    "Fraction of a dead cell looted by the last attacker before debris spills out.":
+      "死体が素材化する前に最後の攻撃者が即時回収する割合です。",
+    "Global respawn fraction": "全域再配置割合",
+    "Fraction of dead-cell debris recycled into random clustered patches elsewhere in the arena.":
+      "死体素材のうち、世界の別の場所へ偏って再配置される割合です。",
+    "Debris unit mass": "素材単位質量",
+    "Reference chunk size used when shattered corpse material is split into many debris packets.":
+      "死体素材を複数ノードに分けるときの基準サイズです。",
+    "Corpse scatter radius": "死体散布半径",
+    "Radius used when a dead cell spills debris around its body.":
+      "死体由来素材を周囲に散らす半径です。",
+    "Resource lifetime": "素材寿命",
+    "Free material that is not collected for this many seconds evaporates from the world.":
+      "この秒数だけ回収されなかった遊離素材は、世界から自然消滅します。",
+    "Material springs": "素材の泉",
+    "User-placed springs drip new debris into the arena for sandbox experiments. They pause when enough free material has already piled up nearby, then resume after the area is eaten down again.":
+      "ユーザーが置いた泉が新しい素材を少しずつ供給します。周囲に十分な遊離素材が溜まると一時停止し、また食べられて減ると再開します。",
+    "Packet mass": "1回の素材量",
+    "Mass emitted by one spring pulse.": "泉が1回に吐き出す素材量です。",
+    "Pulse interval": "噴出間隔",
+    "Seconds between spring emission pulses.": "泉が素材を出す間隔です。",
+    "Scatter radius": "散布半径",
+    "How far a spring can toss each new debris packet from its center.":
+      "泉の中心から素材をどれだけ散らすかです。",
+    "Visual radius": "表示半径",
+    "Drawn size and click hit radius of a spring.": "泉の表示サイズとクリック判定半径です。",
+    "Pause nearby mass": "停止近傍素材量",
+    "If free mass inside a spring's local field exceeds this, the spring pauses until the area is eaten down again.":
+      "泉の周辺にある遊離素材量がこの値を超えると、周囲が食べられて減るまで泉は停止します。",
+    "Spring cap": "泉上限",
+    "Maximum number of springs that can exist at once.":
+      "同時に存在できる泉の最大数です。",
+    "Terrain drag": "地形減速",
+    "Soft mountain fields that slow movement. High ridges become nearly impassable, so local basins and corridors can emerge inside the toroidal world.":
+      "移動を遅くする山地フィールドです。高い尾根はほぼ通れなくなるため、トーラス世界の中にも局所的な盆地や回廊が生まれます。",
+    "Terrain enabled": "地形有効",
+    "Set to 0 to disable terrain slowdown entirely.":
+      "0 にすると地形による減速を完全に無効化します。",
+    "Mountain count": "山の数",
+    "Number of mountain seeds used to build the terrain field.":
+      "地形フィールドを作る山の種の数です。",
+    "Minimum mountain radius": "最小山半径",
+    "Smallest radius used for a terrain peak.": "地形ピークに使う最小半径です。",
+    "Maximum mountain radius": "最大山半径",
+    "Largest radius used for a terrain peak.": "地形ピークに使う最大半径です。",
+    "Slowdown start": "減速開始点",
+    "Terrain height where drag starts to noticeably increase.":
+      "地形の高さに応じて減速が目立ち始める地点です。",
+    "Drag boost": "減速強度",
+    "Extra drag applied inside rough terrain.":
+      "荒れた地形に入ったとき追加される減衰量です。",
+    "Ridge threshold": "尾根閾値",
+    "Terrain height where mountains become almost blocking.":
+      "山がほぼ壁のように機能し始める高さです。",
+    "Minimum traversal": "最小通過率",
+    "Minimum fraction of movement allowed through the harshest ridge.":
+      "最も厳しい尾根でも残る最小移動割合です。",
+    "Combat resolution": "戦闘解決",
+    "Melee strikes happen on contact, ranged shots fire out of aligned slots, and shields soften attacks entering their 120 degree sector instead of erasing them outright. Material only changes hands after a kill.":
+      "近接は接触で発動し、遠隔は向きの合ったスロットから発射され、盾は120度の扇内から来た攻撃を軽減します。素材が移動するのは撃破後だけです。",
+    "Attack scale": "攻撃係数",
+    "Base conversion from attack gadget mass to lifetime damage.":
+      "攻撃ガジェット質量を寿命ダメージへ変換する基礎係数です。",
+    "Defense scale": "防御係数",
+    "Base conversion from defensive gadget mass to mitigation.":
+      "防御ガジェット質量を軽減量へ変換する基礎係数です。",
+    "Core armor": "コア装甲",
+    "Innate defense contributed by core mass regardless of side.":
+      "方向に関係なくコア質量が生む固有防御です。",
+    "Impact bonus": "衝突ボーナス",
+    "Relative closing speed converted into extra lifetime damage.":
+      "相対接近速度が追加寿命ダメージになる量です。",
+    "Contact damage rate": "近接ダメージ率",
+    "Multiplier applied after offense minus defense is converted into lifetime loss.":
+      "攻防差から求めた寿命減少量に掛かる倍率です。",
+    "Ranged damage scale": "遠隔ダメージ係数",
+    "Lifetime loss per ranged hit after offense minus defense is resolved.":
+      "遠隔ヒット時の寿命減少係数です。",
+    "Shield block fraction": "盾軽減率",
+    "Fraction of incoming damage removed when an attack enters an active shield arc.":
+      "盾の有効扇内から来た攻撃を何割軽減するかです。",
+    "Loot efficiency": "回収効率",
+    "Multiplier on how much corpse material the killer captures immediately.":
+      "撃破者が即時回収する死体素材量への倍率です。",
+    "Genetic drift": "遺伝的ゆらぎ",
+    "These values govern how often lineages swap gadgets or perturb allocations and behavioral traits during reproduction.":
+      "繁殖時にガジェット構成や配分、行動特性がどれくらい変化するかを決めます。",
+    "Slot-count mutation": "スロット数変異",
+    "Chance for offspring to gain or lose one gadget slot, between three and seven total.":
+      "子個体が3〜7個の範囲でスロットを1つ増減させる確率です。",
+    "Slot mutation chance": "スロット変異確率",
+    "Chance for each directional gadget to mutate at birth.": "各方向ガジェットが出生時に変異する確率です。",
+    "Allocation jitter": "配分ゆらぎ",
+    "Relative noise applied to core, motor, and slot ratios.":
+      "コア・モーター・スロット配分比に加えるゆらぎです。",
+    "Trait jitter": "形質ゆらぎ",
+    "Noise magnitude applied to sensing, reproduction, and species response thresholds.":
+      "感知・繁殖・種反応閾値に加えるゆらぎ量です。",
+    "Hue jitter": "色相ゆらぎ",
+    "Color drift between parent and child render hues.": "親子間での見た目の色相差です。",
+    Rendering: "描画",
+    "Purely visual scale controls for body silhouettes and debris packets.":
+      "体の見た目サイズと素材粒の見た目だけを変える描画用係数です。",
+    "Organism scale": "個体スケール",
+    "Multiplies rendered body radius.": "描画される個体半径への倍率です。",
+    "Resource scale": "素材スケール",
+    "Multiplies rendered debris radius.": "描画される素材半径への倍率です。",
+    "Directional gadget coefficients": "方向ガジェット係数",
+    "Each cell can carry between three and seven slots, and every active slot chooses either a melee weapon, a ranged emitter, or a shield.":
+      "各個体は3〜7個のスロットを持ち、各スロットは近接・遠隔・防御のいずれかになります。",
+    "Melee attack": "近接攻撃",
+    "Raw attack weight of the close-range weapon.": "近接武器の基礎攻撃力です。",
+    "Melee defense": "近接防御",
+    "Incidental mitigation while a melee slot is struck.": "近接スロットが攻撃されたときの副次的軽減です。",
+    "Melee harvest bias": "近接回収補正",
+    "Extra corpse capture bias when a melee strike lands the killing blow.":
+      "近接でとどめを刺したときの死体回収補正です。",
+    "Melee upkeep": "近接維持費",
+    "Maintenance multiplier for close-range weapon mass.": "近接武器質量に掛かる維持費倍率です。",
+    "Ranged attack": "遠隔攻撃",
+    "Raw attack weight of the ranged emitter.": "遠隔発射器の基礎攻撃力です。",
+    "Ranged defense": "遠隔防御",
+    "Incidental mitigation while a ranged slot is struck.": "遠隔スロットが攻撃されたときの副次的軽減です。",
+    "Ranged harvest bias": "遠隔回収補正",
+    "Extra corpse capture bias when a ranged hit lands the killing blow.":
+      "遠隔でとどめを刺したときの死体回収補正です。",
+    "Ranged upkeep": "遠隔維持費",
+    "Maintenance multiplier for ranged-emitter mass.": "遠隔発射器質量に掛かる維持費倍率です。",
+    "Ranged base range": "遠隔基礎射程",
+    "Maximum reach of a ranged shot before slot mass adds a little extra.":
+      "スロット質量の追加分を除いた基礎射程です。",
+    "Ranged cooldown": "遠隔クールダウン",
+    "Seconds before the same ranged slot can fire again.":
+      "同じ遠隔スロットが再発射できるまでの秒数です。",
+    "Shield field strength": "盾強度",
+    "Visual and secondary strength value of the shield field.":
+      "盾フィールドの見た目と二次的強度です。",
+    "Shield harvest bias": "盾回収補正",
+    "Extra corpse capture bias if a shield bash still lands the killing blow.":
+      "盾による打撃でとどめを刺した場合の死体回収補正です。",
+    "Shield upkeep": "盾維持費",
+    "Maintenance multiplier for shield mass.": "盾質量に掛かる維持費倍率です。"
+  }
+};
+
+function hasStorage() {
+  return typeof window !== "undefined" && typeof window.localStorage !== "undefined";
+}
+
+function interpolate(template, replacements) {
+  return Object.entries(replacements ?? {}).reduce(
+    (result, [key, value]) => result.replaceAll(`{${key}}`, String(value)),
+    template
+  );
+}
+
+export function resolveLocale(locale) {
+  return SUPPORTED_LOCALES.includes(locale) ? locale : DEFAULT_LOCALE;
+}
+
+export function loadLocale() {
+  if (hasStorage()) {
+    const saved = window.localStorage.getItem(LOCALE_STORAGE_KEY);
+    if (saved) {
+      return resolveLocale(saved);
+    }
+  }
+
+  if (typeof navigator !== "undefined" && navigator.language?.toLowerCase().startsWith("ja")) {
+    return "ja";
+  }
+
+  return DEFAULT_LOCALE;
+}
+
+export function saveLocale(locale) {
+  const normalized = resolveLocale(locale);
+  if (hasStorage()) {
+    window.localStorage.setItem(LOCALE_STORAGE_KEY, normalized);
+  }
+  return normalized;
+}
+
+export function t(locale, key, replacements = {}) {
+  const normalized = resolveLocale(locale);
+  const table = MESSAGES[normalized] ?? MESSAGES[DEFAULT_LOCALE];
+  const fallback = MESSAGES[DEFAULT_LOCALE][key] ?? key;
+  return interpolate(table[key] ?? fallback, replacements);
+}
+
+export function localeToggleLabel(locale) {
+  return resolveLocale(locale) === "ja" ? "EN" : "日本語";
+}
+
+export function localeToggleTitle(locale) {
+  return resolveLocale(locale) === "ja"
+    ? t(locale, "common.switchEnglish")
+    : t(locale, "common.switchJapanese");
+}
+
+export function translateConfigText(locale, text) {
+  const normalized = resolveLocale(locale);
+  if (normalized === DEFAULT_LOCALE) {
+    return text;
+  }
+  return CONFIG_TEXT_TRANSLATIONS[normalized]?.[text] ?? text;
+}
+
+export function translateParameterGroups(locale, groups) {
+  return groups.map((group) => ({
+    ...group,
+    title: translateConfigText(locale, group.title),
+    description: translateConfigText(locale, group.description),
+    fields: group.fields.map((field) => ({
+      ...field,
+      label: translateConfigText(locale, field.label),
+      help: translateConfigText(locale, field.help)
+    }))
+  }));
+}
