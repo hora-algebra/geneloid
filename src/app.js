@@ -1264,6 +1264,7 @@ function startApp() {
           totalMaterial: simulation.config?.world?.totalMaterial ?? 0,
           pointerMode: pointerDragState?.mode ?? null,
           statusText: statusPill?.textContent ?? "",
+          audio: audioDirector.getDebugState(),
           activeElementTag: document.activeElement?.tagName ?? null,
           activeElementId: document.activeElement?.id ?? null,
           commandTrace: [...debugState.commandTrace],

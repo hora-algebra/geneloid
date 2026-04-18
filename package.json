@@ -17,7 +17,8 @@
     "dominance-balance": "node ./scripts/dominance-balance.mjs",
     "material-dominance-balance": "node ./scripts/material-dominance-balance.mjs",
     "diversity-balance": "node ./scripts/diversity-balance.mjs",
-    "regional-balance": "node ./scripts/regional-balance.mjs"
+    "regional-balance": "node ./scripts/regional-balance.mjs",
+    "verify-audio": "node ./scripts/verify-audio.mjs"
   },
   "devDependencies": {
     "playwright-core": "^1.59.1"

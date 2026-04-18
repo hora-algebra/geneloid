@@ -45,6 +45,14 @@ export function createAudioDirector() {
   let primed = false;
   let ambientMeasure = 0;
   let nextAmbientAt = 0;
+  const sfxCounts = {
+    springPlaced: 0,
+    springRemoved: 0,
+    lightning: 0,
+    deploy: 0,
+    feeding: 0,
+    uiToggle: 0
+  };
 
   function unlockContext(nextContext) {
     if (!nextContext) {
@@ -444,6 +452,7 @@ export function createAudioDirector() {
     if (!sfxEnabled || !context || !primed) {
       return;
     }
+    sfxCounts.springPlaced += 1;
     const now = context.currentTime;
     scheduleTone({
       frequency: midiToFrequency(72),
@@ -482,6 +491,7 @@ export function createAudioDirector() {
     if (!sfxEnabled || !context || !primed) {
       return;
     }
+    sfxCounts.springRemoved += 1;
     const now = context.currentTime;
     scheduleTone({
       frequency: midiToFrequency(69),
@@ -513,6 +523,7 @@ export function createAudioDirector() {
     if (!sfxEnabled || !context || !primed) {
       return;
     }
+    sfxCounts.lightning += 1;
     const now = context.currentTime;
     const strength = clamp(radius / 260, 0.4, 1.2);
     scheduleNoiseBurst({
@@ -555,6 +566,7 @@ export function createAudioDirector() {
     if (!sfxEnabled || !context || !primed) {
       return;
     }
+    sfxCounts.deploy += 1;
     const now = context.currentTime;
     [64, 71, 76].forEach((note, index) => {
       scheduleTone({
@@ -576,6 +588,7 @@ export function createAudioDirector() {
     if (!sfxEnabled || !context || !primed) {
       return;
     }
+    sfxCounts.feeding += 1;
     const now = context.currentTime;
     const strength = clamp(amount / 10, 0.35, 1);
     scheduleTone({
@@ -615,6 +628,7 @@ export function createAudioDirector() {
     if (!sfxEnabled || !context || !primed) {
       return;
     }
+    sfxCounts.uiToggle += 1;
     const now = context.currentTime;
     scheduleTone({
       frequency: active ? midiToFrequency(72) : midiToFrequency(67),
@@ -637,10 +651,15 @@ export function createAudioDirector() {
       sfxEnabled,
       contextState: context?.state ?? "none",
       hasContext: Boolean(context),
+      contextTime: context?.currentTime ?? null,
+      bgmSource,
       hasBgmElement: Boolean(bgmElement),
       bgmPaused: bgmElement ? bgmElement.paused : null,
       bgmCurrentTime: bgmElement ? bgmElement.currentTime : null,
-      bgmFailed
+      bgmReadyState: bgmElement ? bgmElement.readyState : null,
+      bgmNetworkState: bgmElement ? bgmElement.networkState : null,
+      bgmFailed,
+      sfxCounts: { ...sfxCounts }
     };
   }
 
