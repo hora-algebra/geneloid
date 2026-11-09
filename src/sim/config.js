@@ -138,7 +138,7 @@ export const parameterGroups = [
     key: "world",
     title: "World envelope",
     description:
-      "Arena size and the closed material budget. Raising total material increases carrying capacity immediately.",
+      "Arena size and the starting material. Springs add material and uncollected material evaporates, so the total changes over time. Raising total material increases carrying capacity immediately.",
     fields: [
       {
         path: "world.width",
@@ -162,7 +162,7 @@ export const parameterGroups = [
         min: 800,
         max: 60000,
         step: 10,
-        help: "Mass conserved across cells and free debris."
+        help: "Material held by cells and free debris at the start. Springs, evaporation and lightning change it later."
       },
       {
         path: "world.initialOrganisms",

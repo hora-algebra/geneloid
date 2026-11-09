@@ -2,14 +2,14 @@
 
 GenericAlgoid is a browser-based toroidal evolution sandbox.
 
-Cells move, eat, reproduce, mutate, fight, and branch into visible lineages inside a closed material budget. The simulation is designed to be readable while it runs: the main screen shows the world, dominant lineages, lineage share, and quick controls, while separate guide and developer pages expose the underlying rules and diagnostics.
+Cells move, eat, reproduce, mutate, fight, and branch into visible lineages inside a shared pool of material that springs replenish and evaporation drains. The simulation is designed to be readable while it runs: the main screen shows the world, dominant lineages, lineage share, and quick controls, while separate guide and developer pages expose the underlying rules and diagnostics.
 
 This repository is currently published at `hora-algebra/geneloid`.
 
 ## What It Simulates
 
 - A toroidal world, so movement and sensing wrap across opposite edges.
-- A fixed total material budget shared by organisms, debris, and spring-generated resources.
+- Material shared by organisms and free debris. Springs add new material, free material that nobody collects evaporates, and lightning removes what it hits, so the world total changes over time; every change is counted, and the check script verifies the count.
 - Organisms with inherited movement, sensing, reproduction, and combat traits.
 - Three gadget roles: melee, ranged, and shield.
 - Terrain, springs, debris flow, mutation, and speciation into new lineages.

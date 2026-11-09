@@ -1870,6 +1870,17 @@ function startApp() {
     setLocalizedText("hint-spring-label", "app.hintLabel.spring");
     setLocalizedText("hint-mountain-label", "app.hintLabel.mountain");
     setLocalizedText("hint-design-label", "app.hintLabel.design");
+    const gestureNames = {
+      drag: { en: "Drag", ja: "ドラッグ" },
+      hold: { en: "Hold", ja: "長押し" },
+      click: { en: "Click", ja: "クリック" }
+    };
+    document.querySelectorAll("kbd[data-gesture]").forEach((key) => {
+      const names = gestureNames[key.dataset.gesture];
+      if (names) {
+        key.textContent = names[locale] ?? names.en;
+      }
+    });
     setLocalizedText("hint-dev-label", "app.hintLabel.dev");
 
     setLocalizedText("lineage-title", "app.lineagesTitle");

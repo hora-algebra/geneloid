@@ -2841,6 +2841,7 @@ kbd {
   .stage-quick-controls {
     order: 3;
     width: 100%;
+    flex: 1 1 100%;
     justify-content: stretch;
   }
 
@@ -2858,5 +2859,25 @@ kbd {
     right: 8px;
     bottom: 8px;
     width: calc(100vw - 16px);
+  }
+
+  /* The command list sits at the right end of the toolbar on phones; open it towards the left so the
+     hidden panel does not widen the page. */
+  .stage-command-panel {
+    left: auto;
+    right: 0;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  /* Keep the open command list above the lineage cards that follow the stage. */
+  .stage-panel {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* The script already sizes the frame to the world's aspect ratio; a minimum height would only add empty bands. */
+  .canvas-frame {
+    min-height: 0;
   }
 }
