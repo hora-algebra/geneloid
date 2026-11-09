@@ -3270,8 +3270,14 @@ function summarizeLineages(
     "shapeSquish",
     "shapeTilt",
     "shapePhaseSin",
-    "shapePhaseCos"
+    "shapePhaseCos",
+    // averaged for the capability chart only (it reads them); left out of genomeDiversity so lineage colours stay as before
+    "priorityFood",
+    "priorityDanger",
+    "priorityPrey",
+    "priorityFlock"
   ];
+  const diversityKeyCount = featureKeys.length - 4;
   for (const organism of organisms) {
     const mass = organismMass(organism);
     const key = organism.lineageId;
@@ -3323,6 +3329,9 @@ function summarizeLineages(
         const mean = entry.featureSums[featureKey] / entry.count;
         const meanSquare = entry.featureSquares[featureKey] / entry.count;
         visualFeatures[featureKey] = mean;
+        if (featureKey.startsWith("priority")) {
+          continue;
+        }
         varianceSum += Math.max(0, meanSquare - mean * mean);
       }
       return {
@@ -3333,7 +3342,7 @@ function summarizeLineages(
         sample: entry.sampleOrganism,
         visualFeatures,
         genomeDiversity: clamp(
-          Math.sqrt(varianceSum / featureKeys.length) * 3.4,
+          Math.sqrt(varianceSum / diversityKeyCount) * 3.4,
           0,
           1
         )
