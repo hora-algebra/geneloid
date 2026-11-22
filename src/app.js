@@ -1804,6 +1804,11 @@ function startApp() {
   function applyLocale() {
     document.documentElement.lang = locale;
     document.title = t(locale, "app.pageTitle");
+    setLocalizedText("app-more-summary", "app.moreSummary");
+    setLocalizedText("app-rules-summary", "app.rulesSummary");
+    setLocalizedHtml("app-rules-body", "app.rulesBody");
+    setLocalizedText("reset-world", "app.reset");
+    setLocalizedText("phylogeny-empty", "app.phylogenyEmpty");
 
     menuToggleButton?.setAttribute("aria-label", t(locale, "app.toggleMenuAria"));
     menuToggleButton?.setAttribute("title", t(locale, "app.toggleMenuTitle"));

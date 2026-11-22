@@ -24,7 +24,8 @@ try {
   await page.waitForTimeout(400);
 
   async function openCommandsPanel() {
-    await page.locator("#commands-peek-button").hover();
+    // the command list is shown in full inside the "ほかの操作" fold
+    await page.evaluate(() => { const fold = document.querySelector(".app-more"); if (fold) fold.open = true; });
     await page.waitForFunction(() => {
       const panel = document.getElementById("commands-panel");
       if (!panel) {

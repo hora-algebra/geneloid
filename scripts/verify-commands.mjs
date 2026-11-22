@@ -89,6 +89,8 @@ try {
   await holdKeyClick("KeyP", interactionPoint);
   const afterFeed = await state("afterFeed");
 
+  // the number fields sit in the "ほかの操作" fold
+  await page.evaluate(() => { const fold = document.querySelector(".app-more"); if (fold) fold.open = true; });
   await page.locator("#quick-total-material-input").click();
   const focusedInput = await state("focusedInput");
   const duringFeedFromInput = await readCurrentCommandDuringKey("KeyP");

@@ -28,6 +28,8 @@ try {
   await page.waitForFunction(() => typeof window.__genericalgoidDebug?.getState === "function");
   await page.waitForTimeout(500);
 
+  // the menu button sits in the "ほかの操作" fold
+  await page.evaluate(() => { const fold = document.querySelector(".app-more"); if (fold) fold.open = true; });
   await page.click("#toggle-menu");
   await page.waitForFunction(() => {
     const layer = document.getElementById("menu-layer");

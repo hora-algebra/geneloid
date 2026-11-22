@@ -1,282 +1,309 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>GenericAlgoid | Toroidal Evolution</title>
+    <title>GenericAlgoid | トーラス進化</title>
     <link rel="icon" type="image/svg+xml" href="./icon.svg" />
     <link rel="stylesheet" href="./src/styles.css" />
+    <link rel="stylesheet" href="./src/hp-theme.css" />
   </head>
-  <body class="page-shell">
+  <body class="page-shell hp-theme">
     <div class="aurora aurora-a"></div>
     <div class="aurora aurora-b"></div>
-    <main class="app-layout app-layout-minimal">
-      <section class="stage-panel">
-        <div class="stage-shell">
-          <div class="stage-toolbar">
-            <div class="stage-toolbar-leading">
-              <button
-                id="toggle-menu"
-                class="icon-button"
-                type="button"
-                aria-label="Toggle menu"
-                title="Menu (M)"
-              >
-                ☰
-              </button>
-              <div class="stage-hover-anchor">
+    <header class="app-header">
+      <div class="app-header-text">
+        <h1 class="app-title" translate="no">GenericAlgoid</h1>
+        <div class="app-watch">
+          <p id="app-watch-ja" lang="ja">最初は約500の系統が1%ずつ並ぶ．数分見ていると多くが消え，「系統シェア」の円で，生き残った系統が世界の1〜3割を占めていく（勝つ系統は毎回違う）．</p>
+          <p id="app-watch-en" lang="en">About 500 lineages start near 1% each; within a few minutes most vanish, and in the lineage-share ring a few survivors grow to 10–30% of the world (a different winner each run).</p>
+        </div>
+      </div>
+      <div class="app-header-controls">
+        <div class="app-primary">
+          <button id="toggle-run" class="button-primary" type="button">一時停止</button>
+          <button id="reset-world" class="button-secondary" type="button">リセット</button>
+          <label class="quick-control quick-control-speed" for="quick-speed-scale" title="Speed">
+              <span class="quick-control-icon" aria-hidden="true">»</span>
+              <input
+                id="quick-speed-scale"
+                type="range"
+                min="0.25"
+                max="10"
+                value="3"
+                step="0.25"
+                aria-label="Simulation speed"
+              />
+              <strong id="quick-speed-label">3.00x</strong>
+            </label>
+        </div>
+        <div class="app-folds">
+          <details class="app-fold app-more">
+            <summary id="app-more-summary">ほかの操作</summary>
+            <div class="app-fold-panel">
+              <div class="stage-toolbar-leading">
                 <button
-                  id="commands-peek-button"
-                  class="stage-peek-button"
+                  id="toggle-menu"
+                  class="icon-button"
                   type="button"
-                  aria-label="Show command list"
-                  title="Command list"
+                  aria-label="Toggle menu"
+                  title="Menu (M)"
                 >
-                  Commands
+                  ☰
                 </button>
-                <div id="commands-panel" class="stage-hover-panel stage-command-panel">
-                  <div class="stage-shortcuts-hint" aria-label="Keyboard shortcuts">
-                    <div
-                      class="shortcut-card shortcut-card-actionable"
-                      data-command-action="menu"
-                      role="button"
-                      tabindex="0"
-                    >
-                      <svg class="shortcut-icon shortcut-icon-menu" viewBox="0 0 36 24" aria-hidden="true">
-                        <line x1="7" y1="6" x2="29" y2="6" />
-                        <line x1="7" y1="12" x2="29" y2="12" />
-                        <line x1="7" y1="18" x2="29" y2="18" />
-                      </svg>
-                      <div class="shortcut-copy">
-                        <div class="shortcut-keys"><kbd>M</kbd></div>
-                        <span id="hint-menu-label" class="shortcut-label">Menu</span>
+                <div class="stage-hover-anchor">
+                  <button
+                    id="commands-peek-button"
+                    class="stage-peek-button"
+                    type="button"
+                    aria-label="Show command list"
+                    title="Command list"
+                  >
+                    Commands
+                  </button>
+                  <div id="commands-panel" class="stage-hover-panel stage-command-panel">
+                    <div class="stage-shortcuts-hint" aria-label="Keyboard shortcuts">
+                      <div
+                        class="shortcut-card shortcut-card-actionable"
+                        data-command-action="menu"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <svg class="shortcut-icon shortcut-icon-menu" viewBox="0 0 36 24" aria-hidden="true">
+                          <line x1="7" y1="6" x2="29" y2="6" />
+                          <line x1="7" y1="12" x2="29" y2="12" />
+                          <line x1="7" y1="18" x2="29" y2="18" />
+                        </svg>
+                        <div class="shortcut-copy">
+                          <div class="shortcut-keys"><kbd>M</kbd></div>
+                          <span id="hint-menu-label" class="shortcut-label">Menu</span>
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      class="shortcut-card shortcut-card-actionable"
-                      data-command-action="run"
-                      role="button"
-                      tabindex="0"
-                    >
-                      <svg class="shortcut-icon shortcut-icon-run" viewBox="0 0 36 24" aria-hidden="true">
-                        <circle cx="12" cy="12" r="7" />
-                        <path d="M10.5 8.5 L16.5 12 L10.5 15.5 Z" />
-                        <rect x="22" y="7" width="3" height="10" rx="1.2" />
-                        <rect x="27" y="7" width="3" height="10" rx="1.2" />
-                      </svg>
-                      <div class="shortcut-copy">
-                        <div class="shortcut-keys"><kbd>Space</kbd></div>
-                        <span id="hint-run-label" class="shortcut-label">Run</span>
+                      <div
+                        class="shortcut-card shortcut-card-actionable"
+                        data-command-action="run"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <svg class="shortcut-icon shortcut-icon-run" viewBox="0 0 36 24" aria-hidden="true">
+                          <circle cx="12" cy="12" r="7" />
+                          <path d="M10.5 8.5 L16.5 12 L10.5 15.5 Z" />
+                          <rect x="22" y="7" width="3" height="10" rx="1.2" />
+                          <rect x="27" y="7" width="3" height="10" rx="1.2" />
+                        </svg>
+                        <div class="shortcut-copy">
+                          <div class="shortcut-keys"><kbd>Space</kbd></div>
+                          <span id="hint-run-label" class="shortcut-label">Run</span>
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      class="shortcut-card shortcut-card-actionable"
-                      data-command-action="reset"
-                      role="button"
-                      tabindex="0"
-                    >
-                      <svg class="shortcut-icon shortcut-icon-reset" viewBox="0 0 36 24" aria-hidden="true">
-                        <path d="M26 8.5 A8 8 0 1 0 27.5 14" />
-                        <path d="M23 5.5 L28.5 5.5 L28.5 11" />
-                      </svg>
-                      <div class="shortcut-copy">
-                        <div class="shortcut-keys"><kbd>R</kbd></div>
-                        <span id="hint-reset-label" class="shortcut-label">Reset</span>
+                      <div
+                        class="shortcut-card shortcut-card-actionable"
+                        data-command-action="reset"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <svg class="shortcut-icon shortcut-icon-reset" viewBox="0 0 36 24" aria-hidden="true">
+                          <path d="M26 8.5 A8 8 0 1 0 27.5 14" />
+                          <path d="M23 5.5 L28.5 5.5 L28.5 11" />
+                        </svg>
+                        <div class="shortcut-copy">
+                          <div class="shortcut-keys"><kbd>R</kbd></div>
+                          <span id="hint-reset-label" class="shortcut-label">Reset</span>
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      class="shortcut-card shortcut-card-actionable"
-                      data-command-action="fullscreen"
-                      role="button"
-                      tabindex="0"
-                    >
-                      <svg class="shortcut-icon shortcut-icon-full" viewBox="0 0 36 24" aria-hidden="true">
-                        <path d="M8 9 V5 H12" />
-                        <path d="M24 5 H28 V9" />
-                        <path d="M28 15 V19 H24" />
-                        <path d="M12 19 H8 V15" />
-                      </svg>
-                      <div class="shortcut-copy">
-                        <div class="shortcut-keys"><kbd>F</kbd></div>
-                        <span id="hint-full-label" class="shortcut-label">Full</span>
+                      <div
+                        class="shortcut-card shortcut-card-actionable"
+                        data-command-action="fullscreen"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <svg class="shortcut-icon shortcut-icon-full" viewBox="0 0 36 24" aria-hidden="true">
+                          <path d="M8 9 V5 H12" />
+                          <path d="M24 5 H28 V9" />
+                          <path d="M28 15 V19 H24" />
+                          <path d="M12 19 H8 V15" />
+                        </svg>
+                        <div class="shortcut-copy">
+                          <div class="shortcut-keys"><kbd>F</kbd></div>
+                          <span id="hint-full-label" class="shortcut-label">Full</span>
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      class="shortcut-card shortcut-card-actionable"
-                      data-command-action="developer"
-                      role="button"
-                      tabindex="0"
-                    >
-                      <svg class="shortcut-icon shortcut-icon-speed" viewBox="0 0 36 24" aria-hidden="true">
-                        <line x1="8" y1="12" x2="28" y2="12" />
-                        <path d="M8 12 L12 9.3 M8 12 L12 14.7" />
-                        <path d="M28 12 L24 9.3 M28 12 L24 14.7" />
-                        <circle cx="18" cy="12" r="3.2" />
-                      </svg>
-                      <div class="shortcut-copy">
-                        <div class="shortcut-keys"><kbd>[</kbd><kbd>]</kbd><span class="shortcut-key-sep">/</span><kbd>-</kbd><kbd>+</kbd></div>
-                        <span id="hint-speed-label" class="shortcut-label">Speed</span>
+                      <div
+                        class="shortcut-card shortcut-card-actionable"
+                        data-command-action="developer"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <svg class="shortcut-icon shortcut-icon-speed" viewBox="0 0 36 24" aria-hidden="true">
+                          <line x1="8" y1="12" x2="28" y2="12" />
+                          <path d="M8 12 L12 9.3 M8 12 L12 14.7" />
+                          <path d="M28 12 L24 9.3 M28 12 L24 14.7" />
+                          <circle cx="18" cy="12" r="3.2" />
+                        </svg>
+                        <div class="shortcut-copy">
+                          <div class="shortcut-keys"><kbd>[</kbd><kbd>]</kbd><span class="shortcut-key-sep">/</span><kbd>-</kbd><kbd>+</kbd></div>
+                          <span id="hint-speed-label" class="shortcut-label">Speed</span>
+                        </div>
                       </div>
-                    </div>
-                    <div class="shortcut-card">
-                      <svg class="shortcut-icon shortcut-icon-feed" viewBox="0 0 36 24" aria-hidden="true">
-                        <circle cx="9" cy="8" r="1.5" />
-                        <circle cx="14" cy="11" r="1.5" />
-                        <circle cx="19" cy="14" r="1.5" />
-                        <circle cx="27" cy="12" r="4.2" />
-                      </svg>
-                      <div class="shortcut-copy">
-                        <div class="shortcut-keys"><kbd>P</kbd><span class="shortcut-key-sep">+</span><kbd data-gesture="drag">Drag</kbd></div>
-                        <span id="hint-drop-label" class="shortcut-label">Feed</span>
+                      <div class="shortcut-card">
+                        <svg class="shortcut-icon shortcut-icon-feed" viewBox="0 0 36 24" aria-hidden="true">
+                          <circle cx="9" cy="8" r="1.5" />
+                          <circle cx="14" cy="11" r="1.5" />
+                          <circle cx="19" cy="14" r="1.5" />
+                          <circle cx="27" cy="12" r="4.2" />
+                        </svg>
+                        <div class="shortcut-copy">
+                          <div class="shortcut-keys"><kbd>P</kbd><span class="shortcut-key-sep">+</span><kbd data-gesture="drag">Drag</kbd></div>
+                          <span id="hint-drop-label" class="shortcut-label">Feed</span>
+                        </div>
                       </div>
-                    </div>
-                    <div class="shortcut-card">
-                      <svg class="shortcut-icon shortcut-icon-lightning" viewBox="0 0 36 24" aria-hidden="true">
-                        <circle cx="24" cy="12" r="6.8" />
-                        <path d="M13 4 L8 13 H13 L11 20 L19 10 H14 Z" />
-                      </svg>
-                      <div class="shortcut-copy">
-                        <div class="shortcut-keys"><kbd>L</kbd><span class="shortcut-key-sep">+</span><kbd data-gesture="hold">Hold</kbd></div>
-                        <span id="hint-lightning-label" class="shortcut-label">Lightning</span>
+                      <div class="shortcut-card">
+                        <svg class="shortcut-icon shortcut-icon-lightning" viewBox="0 0 36 24" aria-hidden="true">
+                          <circle cx="24" cy="12" r="6.8" />
+                          <path d="M13 4 L8 13 H13 L11 20 L19 10 H14 Z" />
+                        </svg>
+                        <div class="shortcut-copy">
+                          <div class="shortcut-keys"><kbd>L</kbd><span class="shortcut-key-sep">+</span><kbd data-gesture="hold">Hold</kbd></div>
+                          <span id="hint-lightning-label" class="shortcut-label">Lightning</span>
+                        </div>
                       </div>
-                    </div>
-                    <div class="shortcut-card">
-                      <svg class="shortcut-icon shortcut-icon-spring" viewBox="0 0 36 24" aria-hidden="true">
-                        <path d="M17 5.5 C23.5 5.5 24.5 14.5 18 14.5 C13.5 14.5 13.5 9.3 17 9.3 C19.5 9.3 20 12.2 18 12.2" />
-                        <circle cx="18" cy="12" r="2.2" />
-                      </svg>
-                      <div class="shortcut-copy">
-                        <div class="shortcut-keys"><kbd>S</kbd><span class="shortcut-key-sep">+</span><kbd data-gesture="click">Click</kbd></div>
-                        <span id="hint-spring-label" class="shortcut-label">Spring</span>
+                      <div class="shortcut-card">
+                        <svg class="shortcut-icon shortcut-icon-spring" viewBox="0 0 36 24" aria-hidden="true">
+                          <path d="M17 5.5 C23.5 5.5 24.5 14.5 18 14.5 C13.5 14.5 13.5 9.3 17 9.3 C19.5 9.3 20 12.2 18 12.2" />
+                          <circle cx="18" cy="12" r="2.2" />
+                        </svg>
+                        <div class="shortcut-copy">
+                          <div class="shortcut-keys"><kbd>S</kbd><span class="shortcut-key-sep">+</span><kbd data-gesture="click">Click</kbd></div>
+                          <span id="hint-spring-label" class="shortcut-label">Spring</span>
+                        </div>
                       </div>
-                    </div>
-                    <div class="shortcut-card">
-                      <svg class="shortcut-icon shortcut-icon-mountain" viewBox="0 0 36 24" aria-hidden="true">
-                        <path d="M6 18 L14 8 L20 14 L24 10 L30 18 Z" />
-                        <path d="M14 8 L16 11.3 L18.7 10.2 L20 14" />
-                      </svg>
-                      <div class="shortcut-copy">
-                        <div class="shortcut-keys"><kbd>H</kbd><span class="shortcut-key-sep">+</span><kbd data-gesture="drag">Drag</kbd></div>
-                        <span id="hint-mountain-label" class="shortcut-label">Mountain</span>
+                      <div class="shortcut-card">
+                        <svg class="shortcut-icon shortcut-icon-mountain" viewBox="0 0 36 24" aria-hidden="true">
+                          <path d="M6 18 L14 8 L20 14 L24 10 L30 18 Z" />
+                          <path d="M14 8 L16 11.3 L18.7 10.2 L20 14" />
+                        </svg>
+                        <div class="shortcut-copy">
+                          <div class="shortcut-keys"><kbd>H</kbd><span class="shortcut-key-sep">+</span><kbd data-gesture="drag">Drag</kbd></div>
+                          <span id="hint-mountain-label" class="shortcut-label">Mountain</span>
+                        </div>
                       </div>
-                    </div>
-                    <div class="shortcut-card">
-                      <svg class="shortcut-icon shortcut-icon-design" viewBox="0 0 36 24" aria-hidden="true">
-                        <circle cx="18" cy="12" r="6.8" />
-                        <path d="M18 5.8 V18.2" />
-                        <path d="M11.8 12 H24.2" />
-                      </svg>
-                      <div class="shortcut-copy">
-                        <div class="shortcut-keys"><kbd>C</kbd><span class="shortcut-key-sep">+</span><kbd data-gesture="click">Click</kbd></div>
-                        <span id="hint-design-label" class="shortcut-label">Custom</span>
+                      <div class="shortcut-card">
+                        <svg class="shortcut-icon shortcut-icon-design" viewBox="0 0 36 24" aria-hidden="true">
+                          <circle cx="18" cy="12" r="6.8" />
+                          <path d="M18 5.8 V18.2" />
+                          <path d="M11.8 12 H24.2" />
+                        </svg>
+                        <div class="shortcut-copy">
+                          <div class="shortcut-keys"><kbd>C</kbd><span class="shortcut-key-sep">+</span><kbd data-gesture="click">Click</kbd></div>
+                          <span id="hint-design-label" class="shortcut-label">Custom</span>
+                        </div>
                       </div>
-                    </div>
-                    <div class="shortcut-card">
-                      <svg class="shortcut-icon shortcut-icon-dev" viewBox="0 0 36 24" aria-hidden="true">
-                        <circle cx="11" cy="8" r="2" />
-                        <circle cx="25" cy="8" r="2" />
-                        <circle cx="11" cy="16" r="2" />
-                        <circle cx="25" cy="16" r="2" />
-                        <path d="M13 8 H23 M11 10 V14 M25 10 V14 M13 16 H23" />
-                      </svg>
-                      <div class="shortcut-copy">
-                        <div class="shortcut-keys"><kbd>D</kbd></div>
-                        <span id="hint-dev-label" class="shortcut-label">Dev</span>
+                      <div class="shortcut-card">
+                        <svg class="shortcut-icon shortcut-icon-dev" viewBox="0 0 36 24" aria-hidden="true">
+                          <circle cx="11" cy="8" r="2" />
+                          <circle cx="25" cy="8" r="2" />
+                          <circle cx="11" cy="16" r="2" />
+                          <circle cx="25" cy="16" r="2" />
+                          <path d="M13 8 H23 M11 10 V14 M25 10 V14 M13 16 H23" />
+                        </svg>
+                        <div class="shortcut-copy">
+                          <div class="shortcut-keys"><kbd>D</kbd></div>
+                          <span id="hint-dev-label" class="shortcut-label">Dev</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div class="stage-quick-controls" aria-label="Quick controls">
+                
+                <label class="quick-control quick-control-pop" for="quick-population-input" title="Initial organisms">
+                  <span class="quick-control-icon" aria-hidden="true">◎</span>
+                  <input
+                    id="quick-population-input"
+                    type="number"
+                    min="6"
+                    max="500"
+                    step="1"
+                    value="500"
+                    aria-label="Initial organisms"
+                  />
+                </label>
+                <label class="quick-control quick-control-mass" for="quick-total-material-input" title="Total material">
+                  <span class="quick-control-icon" aria-hidden="true">Σ</span>
+                  <input
+                    id="quick-total-material-input"
+                    type="number"
+                    min="800"
+                    max="60000"
+                    step="10"
+                    value="40000"
+                    aria-label="Total material"
+                  />
+                </label>
+              </div>
+              <div class="stage-meta-actions">
+                <a
+                  id="public-url-link"
+                  class="corner-url-link"
+                  href="https://genericalgoid-ryuyahora.vercel.app"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Open public URL"
+                  title="https://genericalgoid-ryuyahora.vercel.app"
+                >
+                  genericalgoid-ryuyahora.vercel.app
+                </a>
+                <button
+                  id="mode-toggle"
+                  class="dev-mini-button"
+                  type="button"
+                  aria-label="Toggle fast mode"
+                  title="Fast mode"
+                >
+                  fast
+                </button>
+                <button
+                  id="locale-toggle"
+                  class="dev-mini-button"
+                  type="button"
+                  aria-label="Switch language"
+                  title="Switch language"
+                >
+                  日本語
+                </button>
+                <a
+                  id="guide-link"
+                  class="dev-mini-button"
+                  href="./guide.html"
+                  aria-label="Open guide page"
+                  title="Guide page"
+                >
+                  guide
+                </a>
+                <a
+                  id="developer-link"
+                  class="dev-mini-button"
+                  href="./dev.html"
+                  aria-label="Open developer page"
+                  title="Developer page (D)"
+                >
+                  dev
+                </a>
+              </div>
             </div>
-            <div class="stage-quick-controls" aria-label="Quick controls">
-              <label class="quick-control quick-control-speed" for="quick-speed-scale" title="Speed">
-                <span class="quick-control-icon" aria-hidden="true">»</span>
-                <input
-                  id="quick-speed-scale"
-                  type="range"
-                  min="0.25"
-                  max="10"
-                  value="3"
-                  step="0.25"
-                  aria-label="Simulation speed"
-                />
-                <strong id="quick-speed-label">3.00x</strong>
-              </label>
-              <label class="quick-control quick-control-pop" for="quick-population-input" title="Initial organisms">
-                <span class="quick-control-icon" aria-hidden="true">◎</span>
-                <input
-                  id="quick-population-input"
-                  type="number"
-                  min="6"
-                  max="500"
-                  step="1"
-                  value="500"
-                  aria-label="Initial organisms"
-                />
-              </label>
-              <label class="quick-control quick-control-mass" for="quick-total-material-input" title="Total material">
-                <span class="quick-control-icon" aria-hidden="true">Σ</span>
-                <input
-                  id="quick-total-material-input"
-                  type="number"
-                  min="800"
-                  max="60000"
-                  step="10"
-                  value="40000"
-                  aria-label="Total material"
-                />
-              </label>
-            </div>
-            <div class="stage-meta-actions">
-              <a
-                id="public-url-link"
-                class="corner-url-link"
-                href="https://genericalgoid-ryuyahora.vercel.app"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Open public URL"
-                title="https://genericalgoid-ryuyahora.vercel.app"
-              >
-                genericalgoid-ryuyahora.vercel.app
-              </a>
-              <button
-                id="mode-toggle"
-                class="dev-mini-button"
-                type="button"
-                aria-label="Toggle fast mode"
-                title="Fast mode"
-              >
-                fast
-              </button>
-              <button
-                id="locale-toggle"
-                class="dev-mini-button"
-                type="button"
-                aria-label="Switch language"
-                title="Switch language"
-              >
-                日本語
-              </button>
-              <a
-                id="guide-link"
-                class="dev-mini-button"
-                href="./guide.html"
-                aria-label="Open guide page"
-                title="Guide page"
-              >
-                guide
-              </a>
-              <a
-                id="developer-link"
-                class="dev-mini-button"
-                href="./dev.html"
-                aria-label="Open developer page"
-                title="Developer page (D)"
-              >
-                dev
-              </a>
-            </div>
-          </div>
+          </details>
+          <details class="app-fold app-rules">
+            <summary id="app-rules-summary">規則</summary>
+            <div id="app-rules-body" class="app-fold-panel app-rules-body"><p>世界は上下・左右がつながった平面（トーラス）で，素材は個体の体の中か，散らばった遊離素材として存在する．</p></div>
+          </details>
+        </div>
+      </div>
+    </header>
+    <main class="app-layout app-layout-minimal">
+      <section class="stage-panel">
+        <div class="stage-shell">
+          <div class="stage-toolbar" aria-hidden="true"></div>
           <div class="canvas-frame">
             <canvas id="sim-canvas" aria-label="Evolution simulation canvas"></canvas>
           </div>
@@ -376,8 +403,6 @@
 
         <section class="card compact-card control-card">
           <div class="menu-actions">
-            <button id="toggle-run" class="button-primary">Pause</button>
-            <button id="reset-world" class="button-secondary">Reset</button>
             <button id="toggle-fullscreen" class="button-secondary">Fullscreen</button>
           </div>
           <label class="slider-group slider-group-compact" for="speed-scale">
