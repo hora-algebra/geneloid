@@ -11,6 +11,10 @@ const MESSAGES = {
     "common.gadgetRole.defense": "defense",
 
     "app.pageTitle": "GenericAlgoid | Toroidal Evolution",
+    "app.moreSummary": "More controls",
+    "app.rulesSummary": "Rules",
+    "app.rulesBody":
+      "<p>The world wraps around top to bottom and left to right (a torus). Material exists either inside cells or as free pieces scattered on the ground. Springs add new material, free material that nobody collects evaporates, and lightning removes what it hits.</p><p>Each cell weighs five drives (food, danger, prey, flocking, cruising) by its genes to decide where to move, and fights with three kinds of gadget: melee, ranged and shield. A cell that gathers enough material to pass its birth threshold buds off a child, which inherits slightly mutated genes; the larger the mutation, the more likely the child starts a new lineage.</p><p>To intervene: P + drag drops food, S + click places a spring, H + drag raises mountains, C + click deploys a custom lineage, L + hold strikes lightning. More in the <a href=\"./guide.html\">guide</a>.</p>",
     "app.toggleMenuAria": "Toggle menu",
     "app.toggleMenuTitle": "Menu (M)",
     "app.quickControlsAria": "Quick controls",
@@ -258,6 +262,10 @@ const MESSAGES = {
     "common.gadgetRole.defense": "防御",
 
     "app.pageTitle": "GenericAlgoid | トーラス進化",
+    "app.moreSummary": "ほかの操作",
+    "app.rulesSummary": "規則",
+    "app.rulesBody":
+      "<p>世界は上下・左右がつながった平面（トーラス）で，素材は個体の体の中か，散らばった遊離素材として存在する．泉は新しい素材を湧かせ，誰も拾わない遊離素材は蒸発し，雷は当たったものを消す．</p><p>個体は5つの行動候補（エサ・危険・獲物・群れ・巡航）を遺伝子の重みで比べて動き，近接・遠隔・盾の3種の道具で戦う．素材を集めて出産閾値を超えると子を産み，子は少し変異した遺伝子を受け継ぐ．変異が大きいほど，子は新しい系統として分かれやすい．</p><p>世界への介入：P＋ドラッグでエサ，S＋クリックで泉，H＋ドラッグで山，C＋クリックで自作種，L＋長押しで雷．詳しくは<a href=\"./guide.html\">解説</a>．</p>",
     "app.toggleMenuAria": "メニューを開閉",
     "app.toggleMenuTitle": "メニュー (M)",
     "app.quickControlsAria": "クイック操作",
@@ -771,11 +779,8 @@ export function loadLocale() {
     }
   }
 
-  if (typeof navigator !== "undefined" && navigator.language?.toLowerCase().startsWith("ja")) {
-    return "ja";
-  }
-
-  return DEFAULT_LOCALE;
+  // The page is linked from the owner's Japanese homepage, so it opens in Japanese until the reader picks English.
+  return "ja";
 }
 
 export function saveLocale(locale) {
